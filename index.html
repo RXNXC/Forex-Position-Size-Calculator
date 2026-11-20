@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b6e4f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Forex position calculator</title>
+<style>
+:root{--bg:#f2f4f1;--panel:#fff;--ink:#14201b;--mute:#5d6b64;--line:#d5dcd7;--accent:#0b6e4f;--accent-ink:#fff;--risk:#b4342b;--gain:#0b6e4f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1512;--panel:#16201b;--ink:#e6efe9;--mute:#8fa097;--line:#2a3830;--accent:#3ddc97;--accent-ink:#06150e;--risk:#ff7b6e;--gain:#3ddc97;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1512;--panel:#16201b;--ink:#e6efe9;--mute:#8fa097;--line:#2a3830;--accent:#3ddc97;--accent-ink:#06150e;--risk:#ff7b6e;--gain:#3ddc97;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums;line-height:1.45}
+main{max-width:980px;margin:0 auto;padding:28px 18px 48px}
+h1{font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 4px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 24px;max-width:60ch}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:0 0 4px}
+.f{margin-bottom:14px}
+input,select{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 11px}
+input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.grp{display:grid;grid-template-columns:1fr auto;gap:8px}.grp select{width:auto}
+.hero{border-left:4px solid var(--accent);padding:2px 0 2px 16px;margin-bottom:20px}
+.hero .big{font-size:clamp(2.6rem,9vw,3.8rem);font-weight:800;letter-spacing:-.03em;line-height:1}
+.hero .unit{font-size:1rem;color:var(--mute);margin-left:6px;font-weight:400}
+.hero .units{color:var(--mute);margin-top:6px}
+dl{margin:0}
+.d{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+.d:first-child{border-top:0}
+dt{color:var(--mute)}dd{margin:0;font-weight:600;text-align:right}
+.risk{color:var(--risk)}.gain{color:var(--gain)}
+.note{margin-top:14px;padding:10px 12px;border-radius:6px;background:var(--bg);color:var(--mute);font-size:.9rem}
+.err{color:var(--risk)}
+.foot{color:var(--mute);font-size:.82rem;margin-top:22px;max-width:70ch}
+</style>
+</head>
+<body>
+<main>
+<h1>Forex position calculator</h1>
+<p class="sub">Enter your account size, risk and trade levels. You get the lot size that keeps a stop-out at the loss you chose.</p>
+<div class="grid">
+<section class="panel" aria-label="Trade inputs">
+ <div class="row">
+  <div class="f"><label for="bal">Account balance</label><input id="bal" type="number" min="0" step="any" value="10000" inputmode="decimal"></div>
+  <div class="f"><label for="acc">Account currency</label>
+   <select id="acc"><option>USD</option><option>EUR</option><option selected>GBP</option><option>JPY</option><option>CHF</option><option>CAD</option><option>AUD</option><option>NZD</option></select></div>
+ </div>
+ <div class="row">
+  <div class="f"><label for="risk" id="riskLbl">Risk per trade (%)</label><div class="grp"><input id="risk" type="number" min="0" step="any" value="1" inputmode="decimal"><select id="rmode" aria-label="Risk type"><option value="pct">%</option><option value="amt">Amount</option></select></div></div>
+  <div class="f"><label for="pair">Currency pair</label>
+   <select id="pair"></select></div>
+ </div>
+ <div class="row">
+  <div class="f"><label for="entry">Entry price</label><input id="entry" type="number" step="any" value="1.0850" inputmode="decimal"></div>
+  <div class="f"><label for="stop">Stop-loss price</label><input id="stop" type="number" step="any" value="1.0820" inputmode="decimal"></div>
+ </div>
+ <div class="f"><label for="tp">Take-profit price (optional)</label><input id="tp" type="number" step="any" value="1.0910" inputmode="decimal"></div>
+ <div class="row"><div class="f"><label for="cs">Contract size (units per 1 lot)</label><input id="cs" type="number" min="0" step="any" inputmode="decimal"></div><div class="f"><label for="lstep">Lot step</label><select id="lstep"><option value="0.01" selected>0.01</option><option value="0.001">0.001</option><option value="0.1">0.1</option><option value="1">1</option><option value="0">No rounding</option></select></div></div>
+ <div class="f" id="rateWrap" hidden><label for="rate" id="rateLabel">Conversion rate</label><input id="rate" type="number" min="0" step="any" inputmode="decimal"></div>
+</section>
+<section class="panel" aria-live="polite" aria-label="Results">
+ <div class="hero"><div><span class="big" id="lots">–</span><span class="unit">lots</span></div><div class="units" id="units"></div></div>
+ <dl id="out"></dl>
+ <div class="note" id="msg"></div>
+</section>
+</div>
+<p class="foot">Lot size is rounded down to your chosen lot step, so your real risk is never above your target. Metals, indices and crypto vary by broker, so check the contract size field (common defaults: 100 oz gold, 5,000 oz silver, 1 per lot for indices and crypto). A pip is 0.1 for gold, 0.01 for silver and one point for indices and crypto. Spread, slippage and broker contract sizes can change the result. This is a planning aid, not financial advice.</p>
+</main>
+<script>
+(function(){
+var FX=["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/CAD","AUD/USD","NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","AUD/JPY","EUR/CHF"];
+var SPEC={"XAU/USD":["USD",100,0.1,0.01,"oz of gold"],"XAG/USD":["USD",5000,0.01,0.001,"oz of silver"],"US30":["USD",1,1,0.1,"contracts"],"US100":["USD",1,1,0.1,"contracts"],"SPX500":["USD",1,1,0.1,"contracts"],"UK100":["GBP",1,1,0.1,"contracts"],"GER40":["EUR",1,1,0.1,"contracts"],"JP225":["JPY",1,1,1,"contracts"],"BTC/USD":["USD",1,1,0.01,"BTC"],"ETH/USD":["USD",1,1,0.01,"ETH"]};
+var GROUPS=[["Forex",FX],["Metals",["XAU/USD","XAG/USD"]],["Indices",["US30","US100","SPX500","UK100","GER40","JP225"]],["Crypto",["BTC/USD","ETH/USD"]]];
+function info(p){var s=SPEC[p];if(s)return{q:s[0],c:s[1],p:s[2],s:s[3],u:s[4],n:s[2]===1?"points":"pips"};var q=p.split("/")[1],j=q==="JPY";return{q:q,c:100000,p:j?0.01:0.0001,s:j?0.001:0.00001,u:"units of "+p.split("/")[0],n:"pips"}}
+var $=function(i){return document.getElementById(i)};
+var pairSel=$("pair");
+GROUPS.forEach(function(g){var og=document.createElement("optgroup");og.label=g[0];g[1].forEach(function(p){var o=document.createElement("option");o.textContent=p;og.appendChild(o)});pairSel.appendChild(og)});
+var rateTouched=false;
+function fmt(n,d){return isFinite(n)?n.toLocaleString("en-GB",{minimumFractionDigits:d,maximumFractionDigits:d}):"–"}
+function money(n,c){return fmt(n,2)+" "+c}
+function calc(){
+ var acc=$("acc").value,pair=pairSel.value,I=info(pair),quote=I.q;
+ var pip=I.p,cs=parseFloat($("cs").value)||I.c;
+ ["entry","stop","tp"].forEach(function(i){$(i).step=String(I.s)});
+ var needRate=quote!==acc;var mode=$("rmode").value;$("riskLbl").textContent=mode==="amt"?"Risk per trade ("+acc+")":"Risk per trade (%)";
+ $("rateWrap").hidden=!needRate;
+ $("rateLabel").textContent="1 "+quote+" = ? "+acc+" (check a live rate)";
+ var rate=needRate?parseFloat($("rate").value):1;
+ var bal=parseFloat($("bal").value),rp=parseFloat($("risk").value);
+ var e=parseFloat($("entry").value),s=parseFloat($("stop").value),t=parseFloat($("tp").value);
+ var msg=$("msg"),out=$("out");
+ msg.className="note";
+ function bad(text){$("lots").textContent="–";$("units").textContent="";out.innerHTML="";msg.textContent=text;msg.classList.add("err")}
+ if((mode==="pct"&&!(bal>0))||!(rp>0))return bad(mode==="amt"?"Enter a risk amount above zero.":"Enter an account balance and a risk percentage above zero.");
+ if(!isFinite(e)||!isFinite(s))return bad("Enter an entry price and a stop-loss price.");
+ if(e===s)return bad("Entry and stop-loss are the same price. Move the stop away from entry.");
+ if(needRate&&!(rate>0))return bad("Enter the "+quote+" to "+acc+" rate so pip value can be converted.");
+ var long=s<e,pips=Math.abs(e-s)/pip;
+ var riskAmt=mode==="amt"?rp:bal*rp/100;
+ var pipPerLot=cs*pip*rate;
+ var raw=riskAmt/(pips*pipPerLot);
+ var st=parseFloat($("lstep").value);var lots=st>0?Math.floor(raw/st+1e-9)*st:raw;lots=+lots.toFixed(6);
+ var units=lots*cs;
+ var realRisk=lots*pips*pipPerLot;
+ var ld=st>0?Math.max(2,(String(st).split(".")[1]||"").length):4;$("lots").textContent=fmt(lots,ld);
+ $("units").textContent=units.toLocaleString("en-GB",{maximumFractionDigits:4})+" "+I.u+" ("+(long?"long":"short")+")";
+ var rows=[["Direction",long?"Buy (long)":"Sell (short)"],["Stop distance",fmt(pips,1)+" "+I.n],["Value per "+I.n.slice(0,-1)+" at this size",money(lots*pipPerLot,acc)],["Target risk",money(riskAmt,acc)],["Exact size before rounding",fmt(raw,4)+" lots"],["Risk of balance",bal>0?fmt(riskAmt/bal*100,2)+"%":"–"],["Actual risk after rounding","<span class='risk'>"+money(realRisk,acc)+"</span>"]];
+ if(isFinite(t)){
+  var okSide=long?t>e:t<e;
+  if(okSide){var tpPips=Math.abs(t-e)/pip,reward=lots*tpPips*pipPerLot;
+   rows.push(["Target distance",fmt(tpPips,1)+" "+I.n],["Potential profit","<span class='gain'>"+money(reward,acc)+"</span>"],["Reward-to-risk","1 : "+fmt(tpPips/pips,2)]);
+  }else rows.push(["Take-profit","Wrong side of entry for a "+(long?"buy":"sell")]);
+ }
+ out.innerHTML=rows.map(function(r){return "<div class='d'><dt>"+r[0]+"</dt><dd>"+r[1]+"</dd></div>"}).join("");
+ msg.textContent=lots<=0?"Your risk is too small for the minimum lot step ("+st+") at this stop distance. Raise the risk, tighten the stop, or use a smaller lot step if your broker allows.":(st>0&&realRisk<riskAmt*0.9?"Rounded down to the "+st+" lot step, so you risk "+money(realRisk,acc)+" instead of "+money(riskAmt,acc)+". A smaller lot step or contract size gets closer to your target.":"Position size = risk amount ÷ (stop distance × value per pip per lot).");
+ if(lots<=0){$("lots").textContent="0.00";msg.classList.add("err")}
+}
+$("cs").value=info(pairSel.value).c;pairSel.addEventListener("change",function(){$("cs").value=info(pairSel.value).c});
+$("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
+document.querySelectorAll("input,select").forEach(function(el){el.addEventListener("input",calc);el.addEventListener("change",calc)});
+calc();
+})();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
