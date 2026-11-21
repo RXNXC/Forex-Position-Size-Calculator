@@ -1,10 +1,7 @@
 Forex position calculator: installable app (PWA)
 
-1. Upload ALL files in this folder to any HTTPS static host
-   (GitHub Pages, Netlify Drop, Cloudflare Pages, Vercel).
-2. Open the hosted link in Chrome on Android.
-3. Menu (three dots) > Install app / Add to Home screen.
-It then opens full screen and works offline.
-
-To get a real .apk/.aab: give the hosted link to pwabuilder.com
-and choose Android.
+1. Upload ALL files in this folder to your GitHub repo (Add file > Upload files),
+   replacing the old ones. Do not upload the zip itself or a folder.
+2. Wait 1-2 minutes for GitHub Pages to redeploy.
+3. Open the app, wait a few seconds, close it fully, and open it again.
+   From this version on, updates load automatically when you are online.
