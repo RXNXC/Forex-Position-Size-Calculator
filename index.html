@@ -79,8 +79,8 @@ dt{color:var(--mute)}dd{margin:0;font-weight:600;text-align:right}
 <script>
 (function(){
 var FX=["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/CAD","AUD/USD","NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","AUD/JPY","EUR/CHF"];
-var SPEC={"XAU/USD":["USD",100,0.1,0.01,"oz of gold"],"XAG/USD":["USD",1000,0.01,0.001,"oz of silver"],"US30":["USD",1,1,0.1,"contracts"],"US100":["USD",1,1,0.1,"contracts"],"SPX500":["USD",1,1,0.1,"contracts"],"UK100":["GBP",1,1,0.1,"contracts"],"GER40":["EUR",1,1,0.1,"contracts"],"JP225":["JPY",1,1,1,"contracts"],"BTC/USD":["USD",1,1,0.01,"BTC"],"ETH/USD":["USD",1,1,0.01,"ETH"]};
-var GROUPS=[["Forex",FX],["Metals",["XAU/USD","XAG/USD"]],["Indices",["US30","US100","SPX500","UK100","GER40","JP225"]],["Crypto",["BTC/USD","ETH/USD"]]];
+var SPEC={"XAU/USD":["USD",100,0.1,0.01,"oz of gold"],"XAG/USD":["USD",1000,0.01,0.001,"oz of silver"],"US30":["USD",1,1,0.1,"contracts"],"US100":["USD",1,1,0.1,"contracts"],"SPX500":["USD",1,1,0.1,"contracts"],"UK100":["GBP",1,1,0.1,"contracts"],"GER40":["EUR",1,1,0.1,"contracts"],"JP225":["JPY",1,1,1,"contracts"],"BTC/USD":["USD",1,1,0.01,"BTC"],"ETH/USD":["USD",1,1,0.01,"ETH"],"BCH/USD":["USD",1,1,0.01,"BCH"],"LTC/USD":["USD",1,1,0.01,"LTC"],"SOL/USD":["USD",1,1,0.01,"SOL"]};
+var GROUPS=[["Forex",FX],["Metals",["XAU/USD","XAG/USD"]],["Indices",["US30","US100","SPX500","UK100","GER40","JP225"]],["Crypto",["BTC/USD","ETH/USD","BCH/USD","LTC/USD","SOL/USD"]]];
 function info(p){var s=SPEC[p];if(s)return{q:s[0],c:s[1],p:s[2],s:s[3],u:s[4],n:s[2]===1?"points":"pips"};var q=p.split("/")[1],j=q==="JPY";return{q:q,c:100000,p:j?0.01:0.0001,s:j?0.001:0.00001,u:"units of "+p.split("/")[0],n:"pips"}}
 var $=function(i){return document.getElementById(i)};
 var pairSel=$("pair");
