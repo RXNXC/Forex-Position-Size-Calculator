@@ -47,15 +47,12 @@ dt{color:var(--mute)}dd{margin:0;font-weight:600;text-align:right}
 button.pri{font:inherit;font-weight:600;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:12px 16px;cursor:pointer}
 button.pri:disabled{opacity:.4;cursor:not-allowed}
 .toast{color:var(--gain);font-size:.9rem;min-height:1.2em}
-.stats{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;margin-bottom:18px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
-.stat b{display:block;font-size:1.8rem;font-weight:800;line-height:1.1}.stat span{color:var(--mute);font-size:.85rem}
 .entry{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
 .eh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
 .eh h3{margin:0;font-size:1.1rem}
 .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
 .vals span{display:block;color:var(--mute);font-size:.78rem}.vals b{font-weight:600}
-@media(max-width:560px){.stats,.vals{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.vals{grid-template-columns:repeat(2,1fr)}}
 .pl{display:inline-block;border-radius:10px;padding:6px 14px;font-weight:700}
 .pl.win{background:color-mix(in srgb,var(--gain) 16%,transparent);color:var(--gain);border:1px solid var(--gain)}
 .pl.loss{background:color-mix(in srgb,var(--risk) 16%,transparent);color:var(--risk);border:1px solid var(--risk)}
@@ -65,21 +62,33 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 .acts button{font:inherit;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:7px 12px;cursor:pointer}
 .acts input{width:190px;padding:7px 9px}
 .empty{color:var(--mute);text-align:center;padding:30px}
-.sh{display:flex;align-items:center;gap:10px;margin-bottom:2px}
-.ic{display:inline-flex;width:32px;height:32px;border-radius:50%;align-items:center;justify-content:center;flex:none}
-.ic.win{background:color-mix(in srgb,var(--gain) 16%,transparent);color:var(--gain)}
-.ic.loss{background:color-mix(in srgb,var(--risk) 16%,transparent);color:var(--risk)}
-.stat.won b,.stat.won>span{color:var(--gain)}
-.stat.lost b,.stat.lost>span{color:var(--risk)}
-.stat.rate{text-align:center}
 .gauge{display:block;width:130px;margin:6px auto -2px}
 .gt{stroke:var(--line)}.g-win{stroke:var(--gain)}.g-loss{stroke:var(--risk)}
 #gv{transition:stroke-dashoffset .5s ease}
-.stat{flex:0 0 auto}
-.stat.rate{position:relative;padding-top:12px}
-.stat.rate b{position:absolute;top:10px;right:12px;display:block;font-size:1.15rem;color:var(--ink)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stat.rate b{color:#fff}}
-:root[data-theme="dark"] .stat.rate b{color:#fff}
+.acts button.del{color:var(--risk);border-color:var(--risk)}
+.dash{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 20%,var(--panel)),var(--panel));border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.dh h2{margin:0;font-size:1.2rem;font-weight:800}.dh p{margin:2px 0 0;color:var(--mute);font-size:.88rem}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem;color:var(--mute);background:var(--bg)}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1.35fr;gap:12px}
+.tile{background:color-mix(in srgb,var(--ink) 6%,transparent);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;min-width:0}
+.tt{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tl{color:var(--mute);font-size:.85rem}
+.ib{display:inline-flex;width:34px;height:34px;border-radius:10px;align-items:center;justify-content:center;flex:none;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.ib.win{background:color-mix(in srgb,var(--gain) 16%,transparent);color:var(--gain)}
+.ib.loss{background:color-mix(in srgb,var(--risk) 16%,transparent);color:var(--risk)}
+.tv{font-size:2rem;font-weight:800;line-height:1.1;margin-top:8px}
+.ts{color:var(--mute);font-size:.8rem;margin-top:4px}
+.tile.won .tl,.tile.won .tv{color:var(--gain)}
+.tile.lost .tl,.tile.lost .tv{color:var(--risk)}
+.wv{font-size:1.15rem;font-weight:800;color:var(--ink)}
+.tile.rate{text-align:center}.tile.rate .ts{margin-top:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wv{color:#fff}}
+:root[data-theme="dark"] .wv{color:#fff}
+@media(max-width:700px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.rate{grid-column:span 2}}
+.vr{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:8px}.vr .tv{margin-top:0}
+.spark{width:48%;max-width:110px;height:36px;flex:none;overflow:visible}.spark path{vector-effect:non-scaling-stroke}
+.spark.win{color:var(--gain)}.spark.loss{color:var(--risk)}
 </style>
 </head>
 <body>
@@ -122,7 +131,15 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 <section id="v-journal" hidden>
 <h1>Journal</h1>
 <p class="sub">Every trade you confirm in the calculator is recorded here. Mark each one as won or lost when it closes.</p>
-<div class="stats"><div class="stat"><b id="sT">0</b><span>Total trades</span></div><div class="stat won"><div class="sh"><span class="ic win"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b id="sW">0</b></div><span>Trades won</span></div><div class="stat lost"><div class="sh"><span class="ic loss"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></span><b id="sL">0</b></div><span>Trades lost</span></div><div class="stat rate"><svg class="gauge" viewBox="0 0 120 68" role="img" aria-label="Win rate meter"><path class="gt" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round"/><path id="gv" class="g-win" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg><b id="sR">–</b><span>Win rate</span></div></div>
+<section class="dash" aria-label="Journal overview">
+<div class="dh"><div><h2>Trading overview</h2><p>Your journal performance at a glance</p></div><span class="pill" id="dd"></span></div>
+<div class="tiles">
+<div class="tile"><div class="tt"><span class="tl">Total trades</span><span class="ib"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20v-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><b class="tv" id="sT">0</b><span class="ts" id="sO">0 open</span></div>
+<div class="tile won"><div class="tt"><span class="tl">Trades won</span><span class="ib win"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="vr"><b class="tv" id="sW">0</b><svg class="spark win" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true"><path id="spWa" fill="currentColor" fill-opacity=".16" stroke="none"/><path id="spW" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="ts" id="sWp">No closed trades</span></div>
+<div class="tile lost"><div class="tt"><span class="tl">Trades lost</span><span class="ib loss"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></span></div><div class="vr"><b class="tv" id="sL">0</b><svg class="spark loss" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true"><path id="spLa" fill="currentColor" fill-opacity=".16" stroke="none"/><path id="spL" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="ts" id="sLp">No closed trades</span></div>
+<div class="tile rate"><div class="tt"><span class="tl">Win rate</span><b class="wv" id="sR">–</b></div><svg class="gauge" viewBox="0 0 120 68" role="img" aria-label="Win rate meter"><path class="gt" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round"/><path id="gv" class="g-win" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="ts" id="sC">0 closed trades</span></div>
+</div>
+</section>
 <div id="jlist"></div>
 </section>
 </main>
@@ -186,11 +203,12 @@ function card(t){
  var m=function(n){return fmt(n,2)+" "+t.cur},id=" data-id='"+t.id+"'";
  var box=t.st==="win"?"<span class='pl win'>+"+m(t.pl)+"</span>":t.st==="loss"?"<span class='pl loss'>−"+m(t.pl)+"</span>":"<span class='pl open'>Open</span>";
  var acts=t.st==="open"?"<input type='number' min='0' step='any' data-amt='"+t.id+"' placeholder='Actual amount (optional)'><button data-a='win'"+id+">Won</button><button data-a='loss'"+id+">Lost</button>":"<button data-a='reopen'"+id+">Reopen</button>";
- return "<article class='entry'><div class='eh'><h3>"+esc(t.pair)+" · "+t.dir+"</h3>"+box+"</div><div class='vals'><div><span>Open price</span><b>"+esc(t.o)+"</b></div><div><span>Stop loss</span><b>"+esc(t.s)+"</b></div><div><span>Take profit</span><b>"+(t.t?esc(t.t):"–")+"</b></div><div><span>Risk to reward</span><b>"+(t.rr?"1:"+fmt(t.rr,2):"–")+"</b></div></div><label>Reason for taking the trade</label><textarea class='reason'"+id+" placeholder='Why did you take this trade?'>"+esc(t.why)+"</textarea><div class='acts'>"+acts+"<button data-a='del'"+id+">Delete</button><span style='color:var(--mute);font-size:.8rem;margin-left:auto'>"+new Date(t.id).toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"})+"</span></div></article>";
+ return "<article class='entry'><div class='eh'><h3>"+esc(t.pair)+" · "+t.dir+"</h3>"+box+"</div><div class='vals'><div><span>Open price</span><b>"+esc(t.o)+"</b></div><div><span>Stop loss</span><b>"+esc(t.s)+"</b></div><div><span>Take profit</span><b>"+(t.t?esc(t.t):"–")+"</b></div><div><span>Risk to reward</span><b>"+(t.rr?"1:"+fmt(t.rr,2):"–")+"</b></div></div><label>Reason for taking the trade</label><textarea class='reason'"+id+" placeholder='Why did you take this trade?'>"+esc(t.why)+"</textarea><div class='acts'>"+acts+"<button class='del' data-a='del'"+id+">Delete</button><span style='color:var(--mute);font-size:.8rem;margin-left:auto'>"+new Date(t.id).toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"})+"</span></div></article>";
 }
+function spark(id,key){var a=J.slice().reverse(),c=0,s=[0];a.forEach(function(t){if(t.st===key)c++;s.push(c)});if(s.length<2)s.push(0);var mx=Math.max.apply(null,s.concat([1])),n=s.length-1,d="M"+s.map(function(v,i){return (i/n*100).toFixed(1)+","+(32-v/mx*28).toFixed(1)}).join("L");$(id).setAttribute("d",d);$(id+"a").setAttribute("d",d+"L100,36L0,36Z")}
 function renderJ(){
  var w=J.filter(function(t){return t.st==="win"}).length,l=J.filter(function(t){return t.st==="loss"}).length;
- $("sT").textContent=J.length;$("gv").setAttribute("stroke-dashoffset",w+l?100-w/(w+l)*100:100);$("gv").setAttribute("class",w+l&&w/(w+l)<0.5?"g-loss":"g-win");$("sW").textContent=w;$("sL").textContent=l;$("sR").textContent=w+l?Math.round(w/(w+l)*1000)/10+"%":"–";
+ $("sT").textContent=J.length;spark("spW","win");spark("spL","loss");$("sO").textContent=(J.length-w-l)+" open";$("sWp").textContent=w+l?Math.round(w/(w+l)*100)+"% of closed":"No closed trades";$("sLp").textContent=w+l?Math.round(l/(w+l)*100)+"% of closed":"No closed trades";$("sC").textContent=(w+l)+" closed trade"+(w+l===1?"":"s");$("dd").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});$("gv").setAttribute("stroke-dashoffset",w+l?100-w/(w+l)*100:100);$("gv").setAttribute("class",w+l&&w/(w+l)<0.5?"g-loss":"g-win");$("sW").textContent=w;$("sL").textContent=l;$("sR").textContent=w+l?Math.round(w/(w+l)*1000)/10+"%":"–";
  $("jc").textContent=J.length?"("+J.length+")":"";
  $("jlist").innerHTML=J.length?J.map(card).join(""):"<div class='empty'>No trades yet. Calculate a trade, then press “I took this trade”.</div>";
 }
@@ -204,7 +222,7 @@ $("took").addEventListener("click",function(){
 $("jlist").addEventListener("click",function(ev){
  var b=ev.target.closest&&ev.target.closest("button[data-a]");if(!b)return;
  var id=+b.dataset.id,a=b.dataset.a,t=J.filter(function(x){return x.id===id})[0];if(!t)return;
- if(a==="del"){J=J.filter(function(x){return x.id!==id})}
+ if(a==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to delete";setTimeout(function(){b.dataset.arm="";b.textContent="Delete"},3000);return}J=J.filter(function(x){return x.id!==id})}
  else if(a==="reopen"){t.st="open";t.pl=null}
  else{var inp=document.querySelector("input[data-amt='"+id+"']"),v=parseFloat(inp&&inp.value);
   if(!(v>0))v=a==="win"?t.pw:t.pr;
