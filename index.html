@@ -93,6 +93,27 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 .acf{display:grid;gap:12px;max-width:420px;margin-bottom:14px}.acb{display:flex;gap:8px;flex-wrap:wrap}
 .acb button{font:inherit;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:10px 14px;cursor:pointer}
 .acb button.pri{background:var(--accent);color:var(--accent-ink);border:0;font-weight:600}
+.cp{margin-bottom:18px}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ch h2{margin:0;font-size:1.1rem}
+.cn{font-weight:700;color:var(--mute)}.cn.up{color:var(--gain)}.cn.dn{color:var(--risk)}
+.cnav{display:flex;align-items:center;gap:8px}
+.cnav button{font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 11px;cursor:pointer}
+.cnav b{min-width:120px;text-align:center}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cw{color:var(--mute);font-size:.72rem;text-align:center}
+.cd{min-height:48px;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:4px 5px;display:flex;flex-direction:column;justify-content:space-between;font-size:.75rem;color:var(--mute);min-width:0}
+.cd b{font-size:.72rem;font-weight:700;align-self:flex-end}
+.cd.pos{background:color-mix(in srgb,var(--gain) 20%,transparent);border-color:var(--gain);color:var(--gain)}
+.cd.neg{background:color-mix(in srgb,var(--risk) 20%,transparent);border-color:var(--risk);color:var(--risk)}
+.cd.today{outline:2px solid var(--accent);outline-offset:1px}
+.cleg{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:12px;color:var(--mute);font-size:.82rem}
+.lg{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+.lg.win{background:var(--gain)}.lg.loss{background:var(--risk)}
+.eqt{fill:var(--mute);font-size:11px}.eqg{stroke:var(--line);stroke-width:1}.eqz{stroke:var(--mute);stroke-width:1;stroke-dasharray:4 4}
+.eql{fill:none;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.eqa{stroke:none;fill-opacity:.14}.eqa.up{fill:var(--gain)}.eqa.dn{fill:var(--risk)}
+.eqp{fill:var(--panel);stroke-width:2}.eqp.win{stroke:var(--gain)}.eqp.loss{stroke:var(--risk)}
 </style>
 </head>
 <body>
@@ -151,6 +172,8 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 <div class="tile rate"><div class="tt"><span class="tl">Win rate</span><b class="wv" id="sR">–</b></div><svg class="gauge" viewBox="0 0 120 68" role="img" aria-label="Win rate meter"><path class="gt" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round"/><path id="gv" class="g-win" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="ts" id="sC">0 closed trades</span></div>
 </div>
 </section>
+<section class="panel cp" aria-label="Equity curve"><div class="ch"><h2>Equity curve</h2><span id="eqn" class="cn"></span></div><div id="eq"></div></section>
+<section class="panel cp" aria-label="Profit and loss calendar"><div class="ch"><h2>P&amp;L calendar</h2><div class="cnav" id="calh"><button type="button" data-cn="-1" aria-label="Previous month">‹</button><b id="calt"></b><button type="button" data-cn="1" aria-label="Next month">›</button><button type="button" data-cn="0">Today</button></div></div><div class="cal" id="calg"></div><div class="cleg" id="cals"></div></section>
 <div id="jlist"></div>
 </section>
 </main>
@@ -217,9 +240,46 @@ function card(t){
  return "<article class='entry'><div class='eh'><h3>"+esc(t.pair)+" · "+t.dir+"</h3>"+box+"</div><div class='vals'><div><span>Open price</span><b>"+esc(t.o)+"</b></div><div><span>Stop loss</span><b>"+esc(t.s)+"</b></div><div><span>Take profit</span><b>"+(t.t?esc(t.t):"–")+"</b></div><div><span>Risk to reward</span><b>"+(t.rr?"1:"+fmt(t.rr,2):"–")+"</b></div></div><label>Reason for taking the trade</label><textarea class='reason'"+id+" placeholder='Why did you take this trade?'>"+esc(t.why)+"</textarea><div class='acts'>"+acts+"<button class='del' data-a='del'"+id+">Delete</button><span style='color:var(--mute);font-size:.8rem;margin-left:auto'>"+new Date(t.id).toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"})+"</span></div></article>";
 }
 function spark(id,key){var a=J.slice().reverse(),c=0,s=[0];a.forEach(function(t){if(t.st===key)c++;s.push(c)});if(s.length<2)s.push(0);var mx=Math.max.apply(null,s.concat([1])),n=s.length-1,d="M"+s.map(function(v,i){return (i/n*100).toFixed(1)+","+(32-v/mx*28).toFixed(1)}).join("L");$(id).setAttribute("d",d);$(id+"a").setAttribute("d",d+"L100,36L0,36Z")}
+function cm(v){var a=Math.abs(v);return v===0?"0":(v<0?"\u2212":"+")+(a>=1000?(a/1000).toFixed(1)+"k":a>=10?Math.round(a):a.toFixed(1))}
+function closed(){return J.filter(function(t){return t.st==="win"||t.st==="loss"}).map(function(t){return{t:t.ct||t.u||t.id,v:t.st==="win"?t.pl:-t.pl,c:t.cur,p:t.pair}}).sort(function(a,b){return a.t-b.t})}
+function dshort(t){return new Date(t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
+function renderEq(){
+ var c=closed(),box=$("eq"),nn=$("eqn");
+ if(!c.length){box.innerHTML="<div class='empty'>Mark a trade as won or lost to start your equity curve.</div>";nn.textContent="";nn.className="cn";return}
+ var w=Math.max(280,box.clientWidth||600),h=220,L=48,R=14,T=12,B=26,pts=[0],run=0;
+ c.forEach(function(x){run+=x.v;pts.push(Math.round(run*100)/100)});
+ var hi=Math.max.apply(null,pts.concat([0])),lo=Math.min.apply(null,pts.concat([0]));if(hi===lo){hi+=1;lo-=1}
+ var pad=(hi-lo)*0.1,top=hi+pad,bot=lo-pad,n=pts.length-1;
+ var X=function(i){return L+i/n*(w-L-R)},Y=function(v){return T+(top-v)/(top-bot)*(h-T-B)};
+ var fin=pts[n],up=fin>=0,line=pts.map(function(v,i){return X(i).toFixed(1)+","+Y(v).toFixed(1)}).join("L");
+ var s="<svg viewBox='0 0 "+w+" "+h+"' style='display:block;width:100%;height:"+h+"px' role='img' aria-label='Equity curve'>";
+ [hi,0,lo].filter(function(v,i,a){return a.indexOf(v)===i}).forEach(function(v){var y=Y(v).toFixed(1);s+="<line class='"+(v===0?"eqz":"eqg")+"' x1='"+L+"' x2='"+(w-R)+"' y1='"+y+"' y2='"+y+"'/><text class='eqt' x='"+(L-6)+"' y='"+(+y+4)+"' text-anchor='end'>"+cm(v)+"</text>"});
+ s+="<path class='eqa "+(up?"up":"dn")+"' d='M"+line+"L"+X(n).toFixed(1)+","+Y(0).toFixed(1)+"L"+X(0).toFixed(1)+","+Y(0).toFixed(1)+"Z'/>";
+ s+="<path class='eql "+(up?"g-win":"g-loss")+"' d='M"+line+"'/>";
+ if(n<=60)c.forEach(function(x,i){s+="<circle class='eqp "+(x.v>=0?"win":"loss")+"' cx='"+X(i+1).toFixed(1)+"' cy='"+Y(pts[i+1]).toFixed(1)+"' r='"+(i===n-1?5:3.5)+"'><title>"+esc("Trade "+(i+1)+" · "+x.p+" · "+cm(x.v)+" · equity "+cm(pts[i+1]))+"</title></circle>"});
+ s+="<text class='eqt' x='"+L+"' y='"+(h-6)+"'>"+dshort(c[0].t)+"</text><text class='eqt' x='"+(w-R)+"' y='"+(h-6)+"' text-anchor='end'>"+dshort(c[n-1].t)+"</text></svg>";
+ box.innerHTML=s;
+ nn.className="cn "+(up?"up":"dn");nn.textContent="Net P/L "+(fin>0?"+":fin<0?"\u2212":"")+fmt(Math.abs(fin),2)+" "+(c[n-1].c||"")+" · "+c.length+" closed trade"+(c.length===1?"":"s")}
+var cmo=null,rt=null;
+function renderCal(){
+ var now=new Date(),by={},cs=closed(),cur=cs.length?cs[cs.length-1].c||"":"";
+ if(!cmo)cmo={y:now.getFullYear(),m:now.getMonth()};
+ cs.forEach(function(x){var q=new Date(x.t),k=q.getFullYear()+"-"+q.getMonth()+"-"+q.getDate();by[k]=(by[k]||0)+x.v});
+ var first=new Date(cmo.y,cmo.m,1),lead=(first.getDay()+6)%7,days=new Date(cmo.y,cmo.m+1,0).getDate(),h="",pos=0,neg=0,tot=0;
+ ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(n){h+="<div class='cw'>"+n+"</div>"});
+ for(var i=0;i<lead;i++)h+="<div></div>";
+ for(var d=1;d<=days;d++){
+  var v=by[cmo.y+"-"+cmo.m+"-"+d],cls="cd",tip="";
+  if(v!==undefined){v=Math.round(v*100)/100;tot+=v;tip=" title='"+d+" "+first.toLocaleDateString("en-GB",{month:"short"})+": "+cm(v)+" "+cur+"'";if(v>0){cls+=" pos";pos++}else if(v<0){cls+=" neg";neg++}}
+  if(cmo.y===now.getFullYear()&&cmo.m===now.getMonth()&&d===now.getDate())cls+=" today";
+  h+="<div class='"+cls+"'"+tip+"><span>"+d+"</span>"+(v?"<b>"+cm(v)+"</b>":"")+"</div>"}
+ $("calg").innerHTML=h;
+ $("calt").textContent=first.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+ tot=Math.round(tot*100)/100;
+ $("cals").innerHTML="<span><i class='lg win'></i>Profitable days: "+pos+"</span><span><i class='lg loss'></i>Unprofitable days: "+neg+"</span><span>Month P/L: "+(tot>0?"+":tot<0?"\u2212":"")+fmt(Math.abs(tot),2)+" "+cur+"</span>"}
 function renderJ(){
  var w=J.filter(function(t){return t.st==="win"}).length,l=J.filter(function(t){return t.st==="loss"}).length;
- $("sT").textContent=J.length;spark("spW","win");spark("spL","loss");$("sO").textContent=(J.length-w-l)+" open";$("sWp").textContent=w+l?Math.round(w/(w+l)*100)+"% of closed":"No closed trades";$("sLp").textContent=w+l?Math.round(l/(w+l)*100)+"% of closed":"No closed trades";$("sC").textContent=(w+l)+" closed trade"+(w+l===1?"":"s");$("dd").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});$("gv").setAttribute("stroke-dashoffset",w+l?100-w/(w+l)*100:100);$("gv").setAttribute("class",w+l&&w/(w+l)<0.5?"g-loss":"g-win");$("sW").textContent=w;$("sL").textContent=l;$("sR").textContent=w+l?Math.round(w/(w+l)*1000)/10+"%":"–";
+ $("sT").textContent=J.length;spark("spW","win");spark("spL","loss");renderEq();renderCal();$("sO").textContent=(J.length-w-l)+" open";$("sWp").textContent=w+l?Math.round(w/(w+l)*100)+"% of closed":"No closed trades";$("sLp").textContent=w+l?Math.round(l/(w+l)*100)+"% of closed":"No closed trades";$("sC").textContent=(w+l)+" closed trade"+(w+l===1?"":"s");$("dd").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});$("gv").setAttribute("stroke-dashoffset",w+l?100-w/(w+l)*100:100);$("gv").setAttribute("class",w+l&&w/(w+l)<0.5?"g-loss":"g-win");$("sW").textContent=w;$("sL").textContent=l;$("sR").textContent=w+l?Math.round(w/(w+l)*1000)/10+"%":"–";
  $("jc").textContent=J.length?"("+J.length+")":"";
  $("jlist").innerHTML=J.length?J.map(card).join(""):"<div class='empty'>No trades yet. Calculate a trade, then press “I took this trade”.</div>";
 }
@@ -234,11 +294,11 @@ $("jlist").addEventListener("click",function(ev){
  var b=ev.target.closest&&ev.target.closest("button[data-a]");if(!b)return;
  var id=+b.dataset.id,a=b.dataset.a,t=J.filter(function(x){return x.id===id})[0];if(!t)return;
  if(a==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to delete";setTimeout(function(){b.dataset.arm="";b.textContent="Delete"},3000);return}D.push(id);J=J.filter(function(x){return x.id!==id})}
- else if(a==="reopen"){t.st="open";t.pl=null;t.u=Date.now()}
+ else if(a==="reopen"){t.st="open";t.pl=null;t.ct=0;t.u=Date.now()}
  else{var inp=document.querySelector("input[data-amt='"+id+"']"),v=parseFloat(inp&&inp.value);
   if(!(v>0))v=a==="win"?t.pw:t.pr;
   if(!(v>0)){if(inp){inp.focus();inp.placeholder="Enter the amount"}return}
-  t.st=a;t.u=Date.now();t.pl=Math.round(v*100)/100}
+  t.st=a;t.u=Date.now();t.ct=t.u;t.pl=Math.round(v*100)/100}
  jsave();renderJ();
 });
 $("jlist").addEventListener("input",function(ev){var x=ev.target;if(x.classList&&x.classList.contains("reason")){var id=+x.dataset.id;J.forEach(function(t){if(t.id===id){t.why=x.value;t.u=Date.now()}});jsave()}});
@@ -289,6 +349,8 @@ function acctInit(){
   FB.fn.onAuthStateChanged(FB.auth,function(u){user=u||null;renderA();if(unsub){unsub();unsub=null}if(user){st("Syncing\u2026");listen()}})
  }).catch(function(){st("Accounts need an internet connection to load. Your Journal still works on this device.",1)});
  window.addEventListener("online",function(){push(true)})}
+$("calh").addEventListener("click",function(ev){var b=ev.target.closest&&ev.target.closest("button[data-cn]");if(!b)return;var k=+b.dataset.cn;if(!k||!cmo)cmo=null;else{cmo.m+=k;if(cmo.m>11){cmo.m=0;cmo.y++}if(cmo.m<0){cmo.m=11;cmo.y--}}renderCal()});
+window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(!$("v-journal").hidden)renderEq()},150)});
 jload();route();acctInit();
 $("plat").addEventListener("change",function(){var g=$("plat").value==="generic";$("minlot").value=g?0:0.01;$("maxlot").value=g?"":100});
 $("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
