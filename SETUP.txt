@@ -1,0 +1,22 @@
+ACCOUNTS SETUP WITH FIREBASE (one time, free, no card needed)
+
+1. Go to console.firebase.google.com, sign in with a Google account,
+   click Add project, name it (e.g. forex-journal). Turn Google Analytics off. Create.
+2. Build > Authentication > Get started > Sign-in method > Email/Password > Enable > Save.
+3. Build > Firestore Database > Create database. Choose a location near you
+   (cannot be changed later) and Start in production mode. Create.
+4. In Firestore, open the Rules tab. Replace everything with the contents of
+   firestore.rules from this folder and click Publish.
+5. Project Overview (gear icon) > Project settings > General > Your apps > click the
+   web icon </> > register an app (any nickname; skip hosting). Firebase shows a
+   config block. Copy apiKey, authDomain, projectId and appId into config.js
+   between the quotes. Save.
+6. Upload ALL files to your GitHub repo (replace the old ones). Wait 2 minutes.
+7. Open the app online, close it fully, open it again. An Account tab appears.
+   Create an account, then sign in with the same email on any other device.
+
+If sign-in says the domain is not authorized: Authentication > Settings >
+Authorized domains > Add domain > your-username.github.io
+
+The apiKey is meant to be public. Your data is protected by the rules in
+firestore.rules: each user can only read and write their own Journal.

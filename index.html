@@ -7,6 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script src="config.js"></script>
 <title>Forex position calculator</title>
 <style>
 :root{--bg:#f2f4f1;--panel:#fff;--ink:#14201b;--mute:#5d6b64;--line:#d5dcd7;--accent:#0b6e4f;--accent-ink:#fff;--risk:#b4342b;--gain:#0b6e4f;
@@ -89,11 +90,14 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 .vr{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:8px}.vr .tv{margin-top:0}
 .spark{width:48%;max-width:110px;height:36px;flex:none;overflow:visible}.spark path{vector-effect:non-scaling-stroke}
 .spark.win{color:var(--gain)}.spark.loss{color:var(--risk)}
+.acf{display:grid;gap:12px;max-width:420px;margin-bottom:14px}.acb{display:flex;gap:8px;flex-wrap:wrap}
+.acb button{font:inherit;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:10px 14px;cursor:pointer}
+.acb button.pri{background:var(--accent);color:var(--accent-ink);border:0;font-weight:600}
 </style>
 </head>
 <body>
 <main>
-<nav class="tabs" aria-label="Pages"><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button></nav>
+<nav class="tabs" aria-label="Pages"><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button><button class="tab" id="t-acct" type="button" hidden>Account <span id="ac"></span></button></nav>
 <section id="v-calc">
 <h1>Forex position calculator</h1>
 <p class="sub">Enter your account size, risk and trade levels. You get the lot size that keeps a stop-out at the loss you chose.</p>
@@ -127,6 +131,13 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 </section>
 </div>
 <p class="foot">Lot size is rounded down to your chosen lot step, so your real risk is never above your target. For MT4 and MT5, copy min lot, max lot and lot step from Market Watch › Symbols › Specification, because they differ by broker. Margin is an estimate; brokers set leverage per instrument. Metals, indices and crypto vary by broker, so check the contract size field (common defaults: 100 oz gold, 1,000 oz silver, 1 per lot for indices and crypto). A pip is 0.1 for gold, 0.01 for silver and one point for indices and crypto. Spread, slippage and broker contract sizes can change the result. This is a planning aid, not financial advice.</p>
+</section>
+<section id="v-acct" hidden>
+<h1>Account</h1>
+<p class="sub">Sign in to keep your Journal in the cloud and open it on any device.</p>
+<div class="panel acf" id="acIn"><div><label for="acE1">Email</label><input id="acE1" type="email" autocomplete="username" inputmode="email"></div><div><label for="acP">Password (6+ characters)</label><input id="acP" type="password" autocomplete="current-password"></div><div class="acb"><button class="pri" id="acIn2" type="button">Sign in</button><button id="acUp" type="button">Create account</button></div></div>
+<div class="panel acf" id="acOut" hidden><div>Signed in as <b id="acE"></b></div><div class="acb"><button id="acSync" type="button">Sync now</button><button id="acOutBtn" type="button">Sign out</button></div></div>
+<div class="note" id="acs" aria-live="polite">Your Journal is saved on this device. Sign in to sync it.</div>
 </section>
 <section id="v-journal" hidden>
 <h1>Journal</h1>
@@ -195,9 +206,9 @@ function calc(){
  if(lots<=0){$("lots").textContent="0.00";msg.classList.add("err")}
 }
 $("cs").value=info(pairSel.value).c;pairSel.addEventListener("change",function(){$("cs").value=info(pairSel.value).c});
-var last=null,KEY="fxj-v1",J=[];
-function jload(){try{J=JSON.parse(localStorage.getItem(KEY))||[]}catch(x){J=[]}}
-function jsave(){try{localStorage.setItem(KEY,JSON.stringify(J))}catch(x){}}
+var last=null,KEY="fxj-v1",J=[],D=[],CFG=window.FX_CFG&&window.FX_CFG.apiKey&&window.FX_CFG.projectId?window.FX_CFG:null,FB=null,user=null,pt=null,unsub=null;
+function jload(){try{J=JSON.parse(localStorage.getItem(KEY))||[]}catch(x){J=[]}try{D=JSON.parse(localStorage.getItem(KEY+"d"))||[]}catch(x){D=[]}}
+function jsave(){try{localStorage.setItem(KEY,JSON.stringify(J));localStorage.setItem(KEY+"d",JSON.stringify(D))}catch(x){}push()}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function card(t){
  var m=function(n){return fmt(n,2)+" "+t.cur},id=" data-id='"+t.id+"'";
@@ -212,28 +223,73 @@ function renderJ(){
  $("jc").textContent=J.length?"("+J.length+")":"";
  $("jlist").innerHTML=J.length?J.map(card).join(""):"<div class='empty'>No trades yet. Calculate a trade, then press “I took this trade”.</div>";
 }
-function route(){var j=location.hash==="#journal";$("v-calc").hidden=j;$("v-journal").hidden=!j;$("t-calc").setAttribute("aria-current",j?"false":"page");$("t-journal").setAttribute("aria-current",j?"page":"false");if(j)renderJ();window.scrollTo(0,0)}
+function route(){var h=location.hash.slice(1);if(h==="account"&&!CFG)h="";var v=h==="journal"||h==="account"?h:"calc";$("v-calc").hidden=v!=="calc";$("v-journal").hidden=v!=="journal";$("v-acct").hidden=v!=="account";["calc","journal","acct"].forEach(function(k){$("t-"+k).setAttribute("aria-current",(k==="acct"?"account":k)===v?"page":"false")});if(v==="journal")renderJ();if(v==="account")renderA();window.scrollTo(0,0)}
 $("took").addEventListener("click",function(){
  if(!last)return;
- J.unshift({id:Date.now()+Math.random(),pair:last.pair,dir:last.dir,o:last.o,s:last.s,t:last.t,rr:last.rr,pw:last.pw,pr:last.pr,cur:last.cur,why:$("reason").value.trim(),st:"open",pl:null});
+ J.unshift({id:Date.now()+Math.random(),u:Date.now(),pair:last.pair,dir:last.dir,o:last.o,s:last.s,t:last.t,rr:last.rr,pw:last.pw,pr:last.pr,cur:last.cur,why:$("reason").value.trim(),st:"open",pl:null});
  jsave();$("reason").value="";$("jc").textContent="("+J.length+")";
  $("toast").textContent="Recorded in your Journal ✓";setTimeout(function(){$("toast").textContent=""},2500);
 });
 $("jlist").addEventListener("click",function(ev){
  var b=ev.target.closest&&ev.target.closest("button[data-a]");if(!b)return;
  var id=+b.dataset.id,a=b.dataset.a,t=J.filter(function(x){return x.id===id})[0];if(!t)return;
- if(a==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to delete";setTimeout(function(){b.dataset.arm="";b.textContent="Delete"},3000);return}J=J.filter(function(x){return x.id!==id})}
- else if(a==="reopen"){t.st="open";t.pl=null}
+ if(a==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to delete";setTimeout(function(){b.dataset.arm="";b.textContent="Delete"},3000);return}D.push(id);J=J.filter(function(x){return x.id!==id})}
+ else if(a==="reopen"){t.st="open";t.pl=null;t.u=Date.now()}
  else{var inp=document.querySelector("input[data-amt='"+id+"']"),v=parseFloat(inp&&inp.value);
   if(!(v>0))v=a==="win"?t.pw:t.pr;
   if(!(v>0)){if(inp){inp.focus();inp.placeholder="Enter the amount"}return}
-  t.st=a;t.pl=Math.round(v*100)/100}
+  t.st=a;t.u=Date.now();t.pl=Math.round(v*100)/100}
  jsave();renderJ();
 });
-$("jlist").addEventListener("input",function(ev){var x=ev.target;if(x.classList&&x.classList.contains("reason")){var id=+x.dataset.id;J.forEach(function(t){if(t.id===id)t.why=x.value});jsave()}});
-$("t-calc").onclick=function(){location.hash="calc"};$("t-journal").onclick=function(){location.hash="journal"};
+$("jlist").addEventListener("input",function(ev){var x=ev.target;if(x.classList&&x.classList.contains("reason")){var id=+x.dataset.id;J.forEach(function(t){if(t.id===id){t.why=x.value;t.u=Date.now()}});jsave()}});
+$("t-calc").onclick=function(){location.hash="calc"};$("t-journal").onclick=function(){location.hash="journal"};$("t-acct").onclick=function(){location.hash="account"};
 window.addEventListener("hashchange",route);
-jload();route();
+function merge(a,ad,b,bd){var dl={},m={};(ad||[]).concat(bd||[]).forEach(function(i){dl[i]=1});[a,b].forEach(function(arr){(arr||[]).forEach(function(t){if(dl[t.id])return;var o=m[t.id];if(!o||(t.u||0)>(o.u||0))m[t.id]=t})});var j=Object.keys(m).map(function(k){return m[k]}).sort(function(x,y){return y.id-x.id});return{j:j,d:Object.keys(dl).map(Number)}}
+function sig(a){return (a||[]).map(function(t){return t.id+":"+(t.u||0)}).join()}
+function tm(){return new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}
+function st(t,bad){var e=$("acs");e.textContent=t;e.className="note"+(bad?" err":"")}
+function renderA(){$("acIn").hidden=!!user;$("acOut").hidden=!user;if(user)$("acE").textContent=user.email;$("ac").textContent=user?"\u2713":""}
+function lsave(){try{localStorage.setItem(KEY,JSON.stringify(J));localStorage.setItem(KEY+"d",JSON.stringify(D))}catch(x){}}
+function ref(){return FB.fn.doc(FB.db,"journals",user.uid)}
+function emsg(x){var c=x&&x.code||"";return c==="auth/email-already-in-use"?"That email already has an account. Try Sign in.":/invalid-credential|wrong-password|user-not-found/.test(c)?"Wrong email or password.":c==="auth/weak-password"?"Choose a password of at least 6 characters.":c==="auth/invalid-email"?"That email address doesn\u2019t look right.":c==="auth/network-request-failed"?"Couldn\u2019t reach the server. Check your connection.":c==="auth/too-many-requests"?"Too many attempts. Wait a minute and try again.":(x&&x.message)||"Something went wrong."}
+function push(now){
+ if(!FB||!user)return Promise.resolve(true);clearTimeout(pt);
+ var run=function(){
+  var w=FB.fn.setDoc(ref(),{data:JSON.stringify({j:J,d:D}),updated:Date.now()}),
+   t=new Promise(function(_,rej){setTimeout(function(){rej(new Error("timeout"))},6000)});
+  return Promise.race([w,t]).then(function(){st("Synced "+tm());return true}).catch(function(){st("Couldn\u2019t sync. Your entries are safe on this device and will sync when you\u2019re online.",1);return false})};
+ if(now)return run();pt=setTimeout(run,800);return Promise.resolve(true)}
+function listen(){
+ if(unsub)unsub();
+ unsub=FB.fn.onSnapshot(ref(),function(s){
+  if(s.metadata.hasPendingWrites)return;
+  var c={j:[],d:[]};try{if(s.exists())c=JSON.parse(s.data().data)}catch(x){}
+  var m=merge(J,D,c.j,c.d);J=m.j;D=m.d;lsave();renderJ();
+  if(sig(m.j)===sig(c.j)&&m.d.length===(c.d||[]).length){if(!s.metadata.fromCache)st("Synced "+tm())}else if(!s.metadata.fromCache)push(true)
+ },function(){st("Couldn\u2019t reach the server. Showing what is saved on this device.",1)})}
+function auth(k){
+ if(!FB){st("Still loading. Try again in a moment.",1);return}
+ var e=$("acE1").value.trim(),p=$("acP").value;
+ if(!e||p.length<6){st("Enter your email and a password of at least 6 characters.",1);return}
+ st("Working\u2026");
+ (k==="up"?FB.fn.createUserWithEmailAndPassword(FB.auth,e,p):FB.fn.signInWithEmailAndPassword(FB.auth,e,p)).then(function(){$("acP").value=""}).catch(function(x){st(emsg(x),1)})}
+function signOut(){
+ push(true).then(function(ok){
+  if(!ok){st("Sign-out cancelled: your latest entries haven\u2019t synced yet. Try again when you\u2019re online.",1);return}
+  if(unsub){unsub();unsub=null}
+  FB.fn.signOut(FB.auth).then(function(){user=null;J=[];D=[];try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+"d")}catch(x){}renderA();renderJ();st("Signed out. This device no longer holds your Journal.")})})}
+function acctInit(){
+ if(!CFG)return;
+ $("t-acct").hidden=false;
+ $("acIn2").onclick=function(){auth("in")};$("acUp").onclick=function(){auth("up")};$("acSync").onclick=function(){push(true)};$("acOutBtn").onclick=signOut;
+ var B="https://www.gstatic.com/firebasejs/10.14.1/",imp=window.FX_IMPORT||function(u){return import(u)};
+ Promise.all([imp(B+"firebase-app.js"),imp(B+"firebase-auth.js"),imp(B+"firebase-firestore.js")]).then(function(m){
+  var app=m[0].initializeApp(CFG);
+  FB={auth:m[1].getAuth(app),db:m[2].getFirestore(app),fn:Object.assign({},m[1],m[2])};
+  FB.fn.onAuthStateChanged(FB.auth,function(u){user=u||null;renderA();if(unsub){unsub();unsub=null}if(user){st("Syncing\u2026");listen()}})
+ }).catch(function(){st("Accounts need an internet connection to load. Your Journal still works on this device.",1)});
+ window.addEventListener("online",function(){push(true)})}
+jload();route();acctInit();
 $("plat").addEventListener("change",function(){var g=$("plat").value==="generic";$("minlot").value=g?0:0.01;$("maxlot").value=g?"":100});
 $("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
 document.querySelectorAll("input,select").forEach(function(el){el.addEventListener("input",calc);el.addEventListener("change",calc)});
