@@ -3,6 +3,8 @@ ACCOUNTS SETUP WITH FIREBASE (one time, free, no card needed)
 1. Go to console.firebase.google.com, sign in with a Google account,
    click Add project, name it (e.g. forex-journal). Turn Google Analytics off. Create.
 2. Build > Authentication > Get started > Sign-in method > Email/Password > Enable > Save.
+2b. For the Google button: same Sign-in method screen > Add new provider > Google > Enable,
+   pick a support email > Save.
 3. Build > Firestore Database > Create database. Choose a location near you
    (cannot be changed later) and Start in production mode. Create.
 4. In Firestore, open the Rules tab. Replace everything with the contents of
@@ -14,6 +16,9 @@ ACCOUNTS SETUP WITH FIREBASE (one time, free, no card needed)
 6. Upload ALL files to your GitHub repo (replace the old ones). Wait 2 minutes.
 7. Open the app online, close it fully, open it again. An Account tab appears.
    Create an account, then sign in with the same email on any other device.
+
+Google sign-in needs your site domain authorized, so do this even if email sign-in works:
+Authentication > Settings > Authorized domains > Add domain > your-username.github.io
 
 If sign-in says the domain is not authorized: Authentication > Settings >
 Authorized domains > Add domain > your-username.github.io
