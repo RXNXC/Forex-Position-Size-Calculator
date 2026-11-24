@@ -20,7 +20,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grote
 main{max-width:980px;margin:0 auto;padding:28px 18px 48px}
 h1{font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 4px;font-weight:800;letter-spacing:-.02em}
 .sub{color:var(--mute);margin:0 0 24px;max-width:60ch}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
 @media(max-width:760px){.grid{grid-template-columns:1fr}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -165,7 +165,6 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 .chip{display:flex;align-items:center;gap:8px;border:1.5px solid #12a06e;border-radius:12px;padding:6px 12px;background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer}
 .chip svg{color:#12a06e;flex:none}
 .boot{max-width:980px;margin:80px auto;text-align:center;color:var(--mute)}
-.hero{min-height:min(68vh,540px);border-radius:16px;overflow:hidden;display:flex;align-items:center;padding:clamp(24px,6vw,60px);color:#fff;background:linear-gradient(90deg,rgba(2,22,20,.82) 0%,rgba(2,22,20,.35) 70%,rgba(2,22,20,.15) 100%),var(--img-home) center/cover,#052b27}
 .hc{text-align:left;max-width:640px}
 .hw{margin:0 0 4px;font-size:clamp(1.15rem,3vw,1.7rem);font-weight:500;opacity:.92}
 h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#12b36f 0%,#a8f7d2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -178,24 +177,41 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 #acOut .acb{align-items:flex-start}
 #acs:empty{display:none}
 @media(max-width:700px){.top .tabs{order:3;width:100%;margin-left:0;overflow-x:auto;flex-wrap:nowrap}.brand{margin-right:auto}.top .tab{white-space:nowrap}}
-#app.home .top{position:absolute;top:0;left:0;right:0;max-width:none;z-index:5;padding:18px clamp(16px,4vw,44px) 0}
+#app.home .top{position:absolute;top:0;left:0;right:0;max-width:none;z-index:5;padding:18px var(--hpad) 0}
 #app.home .tab{color:rgba(255,255,255,.72)}
 #app.home .tab[aria-current="page"]{color:#fff;border-bottom-color:#7be3b4}
 #app.home .chip{color:#fff}
 #app.home main{max-width:none;margin:0;padding:0}
-.hero{position:relative;isolation:isolate;overflow:hidden;border-radius:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:clamp(96px,14vh,140px) clamp(20px,7vw,96px) 64px;color:#fff;background:radial-gradient(80% 65% at 88% 12%,rgba(46,204,140,.42) 0%,transparent 62%),radial-gradient(70% 60% at 10% 100%,rgba(15,107,76,.55) 0%,transparent 65%),linear-gradient(135deg,#03110d 0%,#07352a 46%,#0e6a4b 100%)}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--img-home) center/cover no-repeat;opacity:.3;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 60%);mask-image:linear-gradient(90deg,transparent 0%,#000 60%)}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,17,13,.55) 0%,transparent 28%,transparent 70%,rgba(3,17,13,.6) 100%)}
+#v-home{position:relative;isolation:isolate;overflow:hidden;border-radius:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:clamp(96px,14vh,140px) var(--hpad) 64px;color:#fff;background:radial-gradient(80% 65% at 88% 12%,rgba(46,204,140,.42) 0%,transparent 62%),radial-gradient(70% 60% at 10% 100%,rgba(15,107,76,.55) 0%,transparent 65%),linear-gradient(135deg,#03110d 0%,#07352a 46%,#0e6a4b 100%)}
+#v-home::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--img-home) center/cover no-repeat;opacity:.3;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 60%);mask-image:linear-gradient(90deg,transparent 0%,#000 60%)}
+#v-home::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,17,13,.55) 0%,transparent 28%,transparent 70%,rgba(3,17,13,.6) 100%)}
 .hnote{margin:14px 0 0;font-size:.85rem;color:rgba(255,255,255,.8);min-height:1.2em}
 .back{align-self:flex-start;color:var(--mute);text-decoration:none;font-size:.82rem}
-@media(max-width:700px){.hero::before{opacity:.22;-webkit-mask-image:none;mask-image:none}}
+@media(max-width:700px){#v-home::before{opacity:.22;-webkit-mask-image:none;mask-image:none}}
+
+:root{--hpad:clamp(20px,6vw,72px)}
+.grid>.panel{display:flex;flex-direction:column}
+.grid #out{flex:1;display:flex;flex-direction:column;margin-bottom:12px}
+.grid #out .d{flex:1 1 auto;align-items:center}
+.grid .take{margin-top:auto;padding-top:14px}
+.ah{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:end}
+.ah p{max-width:none;padding:0}
+.jh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.jh h2{margin:0;font-size:1.1rem}.jhr{display:flex;align-items:center;gap:12px}
+.addb{font:inherit;font-weight:600;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.mf{margin-bottom:14px}.mf h3{margin:0 0 12px;font-size:1rem}
+.mg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.mrr{padding:10px 11px;border:1px dashed var(--line);border-radius:6px;color:var(--mute)}
+.mf .acb,.mf .acts{margin-top:12px}
+.mf .acts button.pri{background:var(--accent);color:var(--accent-ink);border:0;font-weight:600}
+@media(max-width:560px){.mg{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="app" class="booting">
 <header class="top" id="top"><span class="brand">RX FX TOOLS</span><nav class="tabs" id="nav" aria-label="Pages"><button class="tab" id="t-home" type="button">Home</button><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button></nav><button class="chip" id="chip" type="button" hidden aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span id="chipN"></span></button></header>
 <main id="main">
-<section id="v-home" class="hero"><div class="hc"><p class="hw">Welcome to</p><h1 class="hb">RX FX TOOLS</h1><div class="hbtns" id="hAct"><button class="hb1" id="hCalc" type="button">Position Size Calculator</button><button class="hb2" id="hJour" type="button">Journal</button></div><div class="hbtns" id="hAnon" hidden><button class="hb1" id="hAuth" type="button">Sign Up / Sign In</button></div><p class="hnote" id="hNote" aria-live="polite"></p></div></section>
+<section id="v-home"><div class="hc"><p class="hw">Welcome to</p><h1 class="hb">RX FX TOOLS</h1><div class="hbtns" id="hAct"><button class="hb1" id="hCalc" type="button">Position Size Calculator</button><button class="hb2" id="hJour" type="button">Journal</button></div><div class="hbtns" id="hAnon" hidden><button class="hb1" id="hAuth" type="button">Sign Up / Sign In</button></div><p class="hnote" id="hNote" aria-live="polite"></p></div></section>
 <section id="v-calc" hidden>
 <h1>Forex position calculator</h1>
 <p class="sub">Enter your account size, risk and trade levels. You get the lot size that keeps a stop-out at the loss you chose.</p>
@@ -260,6 +276,22 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 <div class="tile lost"><div class="tt"><span class="tl">Trades lost</span><span class="ib loss"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></span></div><div class="vr"><b class="tv" id="sL">0</b><svg class="spark loss" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true"><path id="spLa" fill="currentColor" fill-opacity=".16" stroke="none"/><path id="spL" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="ts" id="sLp">No closed trades</span></div>
 <div class="tile rate"><div class="tt"><span class="tl">Win rate</span><b class="wv" id="sR">–</b></div><svg class="gauge" viewBox="0 0 120 68" role="img" aria-label="Win rate meter"><path class="gt" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round"/><path id="gv" class="g-win" d="M10 60A50 50 0 0 1 110 60" pathLength="100" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="ts" id="sC">0 closed trades</span></div>
 </div>
+</section>
+<div class="jh"><h2>Journal entries</h2><div class="jhr"><span class="cn" id="jmsg" aria-live="polite"></span><button class="addb" id="mAdd" type="button">+ Add entry</button></div></div>
+<section class="panel mf" id="mForm" hidden aria-label="Add a journal entry"><h3>Add a journal entry</h3>
+<div class="mg">
+<div><label for="mAsset">Asset name</label><input id="mAsset" list="mList" placeholder="eg. XAU/USD" autocomplete="off"><datalist id="mList"></datalist></div>
+<div><label for="mDate">Date and time</label><input id="mDate" type="datetime-local"></div>
+<div><label for="mOpen">Open price</label><input id="mOpen" type="number" step="any" inputmode="decimal"></div>
+<div><label for="mStop">Stop loss price</label><input id="mStop" type="number" step="any" inputmode="decimal"></div>
+<div><label for="mTp">Take profit price (optional)</label><input id="mTp" type="number" step="any" inputmode="decimal"></div>
+<div><label>Risk to reward</label><div class="mrr" id="mRR">–</div></div>
+<div><label for="mRes">Result</label><select id="mRes"><option value="open">Open (not closed yet)</option><option value="win">Won</option><option value="loss">Lost</option></select></div>
+<div id="mAmtW" hidden><label for="mAmt" id="mAmtL">Profit amount</label><div class="grp"><input id="mAmt" type="number" min="0" step="any" inputmode="decimal"><select id="mCur" aria-label="Currency"><option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option><option>CHF</option><option>CAD</option><option>AUD</option><option>NZD</option></select></div></div>
+</div>
+<div><label for="mWhy">Reason for taking the trade</label><textarea id="mWhy" class="reason" placeholder="Why did you take this trade?"></textarea></div>
+<div class="note err" id="mErr" hidden></div>
+<div class="acts"><button class="pri" id="mSave" type="button">Save entry</button><button id="mCancel" type="button">Cancel</button></div>
 </section>
 <div id="jlist"></div>
 <div class="duo">
@@ -494,6 +526,32 @@ function acctInit(){
  window.addEventListener("online",function(){push(true)})}
 $("calh").addEventListener("click",function(ev){var b=ev.target.closest&&ev.target.closest("button[data-cn]");if(!b)return;var k=+b.dataset.cn;if(!k||!cmo)cmo=null;else{cmo.m+=k;if(cmo.m>11){cmo.m=0;cmo.y++}if(cmo.m<0){cmo.m=11;cmo.y--}}renderCal()});
 window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(!$("v-journal").hidden)renderEq()},150)});
+function lt(d){var p=function(n){return (n<10?"0":"")+n};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
+function mfRR(){var o=parseFloat($("mOpen").value),s=parseFloat($("mStop").value),t=parseFloat($("mTp").value),r="\u2013";if(isFinite(o)&&isFinite(s)&&isFinite(t)&&o!==s&&(s<o?t>o:t<o))r="1:"+fmt(Math.abs(t-o)/Math.abs(o-s),2);$("mRR").textContent=r}
+function mfAmt(){var r=$("mRes").value;$("mAmtW").hidden=r==="open";$("mAmtL").textContent=r==="win"?"Profit amount":"Loss amount"}
+function mfClose(){$("mForm").hidden=true;$("mErr").hidden=true}
+function mfOpen(){
+ if(!$("mForm").hidden){mfClose();return}
+ var l=$("mList");if(!l.innerHTML)l.innerHTML=FX.concat(Object.keys(SPEC)).map(function(p){return "<option value='"+p+"'>"}).join("");
+ $("mDate").value=lt(new Date());$("mDate").dataset.d=$("mDate").value;$("mCur").value=(J[0]&&J[0].cur)||$("acc").value||"USD";
+ ["mAsset","mOpen","mStop","mTp","mAmt","mWhy"].forEach(function(i){$(i).value=""});$("mRes").value="open";mfAmt();mfRR();
+ $("mForm").hidden=false;$("mErr").hidden=true;$("mAsset").focus()}
+function mfSave(){
+ var A=$("mAsset").value.trim().toUpperCase(),o=parseFloat($("mOpen").value),s=parseFloat($("mStop").value),tv=$("mTp").value.trim(),t=parseFloat(tv),res=$("mRes").value,amt=parseFloat($("mAmt").value),
+  err=function(m){var e=$("mErr");e.textContent=m;e.hidden=false};
+ if(!A)return err("Enter the asset name, for example XAU/USD.");
+ if(!isFinite(o)||!isFinite(s))return err("Enter the open price and the stop loss price.");
+ if(o===s)return err("The stop loss can\u2019t be the same as the open price.");
+ var long=s<o,rr=0;
+ if(tv!==""){if(!isFinite(t))return err("Take profit must be a number.");if(long?t<=o:t>=o)return err("For a "+(long?"buy":"sell")+", the take profit must be "+(long?"above":"below")+" the open price.");rr=Math.abs(t-o)/Math.abs(o-s)}
+ if(res!=="open"&&!(amt>0))return err("Enter the "+(res==="win"?"profit":"loss")+" amount (more than 0).");
+ var ts=$("mDate").value===$("mDate").dataset.d?Date.now():new Date($("mDate").value).getTime();if(!isFinite(ts))ts=Date.now();
+ var e={id:ts+Math.random(),u:Date.now(),pair:A,dir:long?"Buy":"Sell",o:$("mOpen").value.trim(),s:$("mStop").value.trim(),t:tv,rr:rr,pw:res==="win"?amt:0,pr:res==="loss"?amt:0,cur:$("mCur").value,why:$("mWhy").value.trim(),st:res,pl:res==="open"?null:Math.round(amt*100)/100};
+ if(res!=="open")e.ct=ts;
+ J.push(e);J.sort(function(a,b){return b.id-a.id});jsave();mfClose();renderJ();
+ var m=$("jmsg");m.textContent="Entry added \u2713";setTimeout(function(){m.textContent=""},2500)}
+$("mAdd").onclick=mfOpen;$("mCancel").onclick=mfClose;$("mSave").onclick=mfSave;
+$("mRes").addEventListener("change",mfAmt);["mOpen","mStop","mTp"].forEach(function(i){$(i).addEventListener("input",mfRR)});
 jload();rload();route();acctInit();rfetch();
 $("plat").addEventListener("change",function(){var g=$("plat").value==="generic";$("minlot").value=g?0:0.01;$("maxlot").value=g?"":100});
 $("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
