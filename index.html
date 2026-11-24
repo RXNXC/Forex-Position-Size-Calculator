@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b6e4f">
+<meta name="theme-color" content="#052b27">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -126,11 +126,11 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 @media(max-width:820px){.duo{grid-template-columns:1fr}}
 [hidden]{display:none!important}
 .auth{display:grid;grid-template-columns:1.05fr 1fr;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);min-height:520px}
-.aside{color:#fff;padding:26px;display:flex;flex-direction:column;justify-content:flex-end;gap:22px;background:radial-gradient(120% 90% at 85% 55%,#1f8a63 0%,#0f4a38 38%,#08140f 78%),#08140f}
+.aside{color:#fff;padding:26px;display:flex;flex-direction:column;justify-content:flex-end;gap:22px;background:linear-gradient(180deg,rgba(3,18,14,.15) 0%,rgba(3,18,14,.78) 100%),var(--img-auth) center/cover,#08140f}
 .ah{display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap}
 .ah h2{margin:0;font-size:1.9rem;line-height:1.1;font-weight:700}
 .ah p{margin:0;font-size:.82rem;opacity:.8;max-width:190px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .stp{background:rgba(255,255,255,.12);border-radius:12px;padding:12px;min-height:92px;display:flex;flex-direction:column;justify-content:space-between;font-size:.78rem;color:rgba(255,255,255,.85)}
 .stp i{font-style:normal;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:.7rem}
 .stp.on{background:#fff;color:#111}.stp.on i{background:#111;color:#fff}
@@ -150,12 +150,53 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 .lnk{font:inherit;background:none;border:0;color:var(--ink);font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
 .form .note{margin-top:0}
 @media(max-width:760px){.auth{grid-template-columns:1fr}.aside{min-height:280px}.form{padding:22px 18px}}
+#acOut{align-items:center;text-align:center}
+#acOut .acb{justify-content:center}
+.okc{width:58px;height:58px;border-radius:50%;background:#12a06e;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px color-mix(in srgb,#12a06e 18%,transparent)}
+.acb .sbtn,.acb .obtn{display:inline-flex;align-items:center;gap:8px;color:#fff;border:0;font-weight:600}
+.acb .sbtn{background:#12a06e}
+.acb .obtn{background:#d6403a}
+.form .note{text-align:center}
+/*IMG*/:root{--img-home:url(images/home-bg.jpg);--img-auth:url(images/auth-bg.jpg)}/*ENDIMG*/
+.top{max-width:980px;margin:0 auto;padding:16px 18px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.06em;font-size:.95rem;background:linear-gradient(90deg,#12a06e,#7be3b4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.top .tabs{margin:0 0 0 auto;border:0;gap:2px}
+.top .tab{text-transform:uppercase;letter-spacing:.04em;font-size:.78rem;padding:8px 12px}
+.chip{display:flex;align-items:center;gap:8px;border:1.5px solid #12a06e;border-radius:12px;padding:6px 12px;background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer}
+.chip svg{color:#12a06e;flex:none}
+.boot{max-width:980px;margin:80px auto;text-align:center;color:var(--mute)}
+.hero{min-height:min(68vh,540px);border-radius:16px;overflow:hidden;display:flex;align-items:center;padding:clamp(24px,6vw,60px);color:#fff;background:linear-gradient(90deg,rgba(2,22,20,.82) 0%,rgba(2,22,20,.35) 70%,rgba(2,22,20,.15) 100%),var(--img-home) center/cover,#052b27}
+.hc{text-align:left;max-width:640px}
+.hw{margin:0 0 4px;font-size:clamp(1.15rem,3vw,1.7rem);font-weight:500;opacity:.92}
+h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#12b36f 0%,#a8f7d2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap}
+.hbtns button{font:inherit;font-weight:600;border-radius:999px;padding:11px 24px;cursor:pointer}
+.hb1{background:#fff;color:#0b1f18;border:2px solid #fff}
+.hb2{background:transparent;color:#fff;border:2px solid #fff}
+.sc{display:flex;flex-direction:column;gap:4px;width:max-content}
+.sc small{font-size:.62rem;color:var(--mute);width:0;min-width:100%;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#acOut .acb{align-items:flex-start}
+#acs:empty{display:none}
+@media(max-width:700px){.top .tabs{order:3;width:100%;margin-left:0;overflow-x:auto;flex-wrap:nowrap}.brand{margin-right:auto}.top .tab{white-space:nowrap}}
+#app.home .top{position:absolute;top:0;left:0;right:0;max-width:none;z-index:5;padding:18px clamp(16px,4vw,44px) 0}
+#app.home .tab{color:rgba(255,255,255,.72)}
+#app.home .tab[aria-current="page"]{color:#fff;border-bottom-color:#7be3b4}
+#app.home .chip{color:#fff}
+#app.home main{max-width:none;margin:0;padding:0}
+.hero{position:relative;isolation:isolate;overflow:hidden;border-radius:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:clamp(96px,14vh,140px) clamp(20px,7vw,96px) 64px;color:#fff;background:radial-gradient(80% 65% at 88% 12%,rgba(46,204,140,.42) 0%,transparent 62%),radial-gradient(70% 60% at 10% 100%,rgba(15,107,76,.55) 0%,transparent 65%),linear-gradient(135deg,#03110d 0%,#07352a 46%,#0e6a4b 100%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--img-home) center/cover no-repeat;opacity:.3;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 60%);mask-image:linear-gradient(90deg,transparent 0%,#000 60%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,17,13,.55) 0%,transparent 28%,transparent 70%,rgba(3,17,13,.6) 100%)}
+.hnote{margin:14px 0 0;font-size:.85rem;color:rgba(255,255,255,.8);min-height:1.2em}
+.back{align-self:flex-start;color:var(--mute);text-decoration:none;font-size:.82rem}
+@media(max-width:700px){.hero::before{opacity:.22;-webkit-mask-image:none;mask-image:none}}
 </style>
 </head>
 <body>
-<main>
-<nav class="tabs" aria-label="Pages"><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button><button class="tab" id="t-acct" type="button" hidden>Account <span id="ac"></span></button></nav>
-<section id="v-calc">
+<div id="app" class="booting">
+<header class="top" id="top"><span class="brand">RX FX TOOLS</span><nav class="tabs" id="nav" aria-label="Pages"><button class="tab" id="t-home" type="button">Home</button><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button></nav><button class="chip" id="chip" type="button" hidden aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span id="chipN"></span></button></header>
+<main id="main">
+<section id="v-home" class="hero"><div class="hc"><p class="hw">Welcome to</p><h1 class="hb">RX FX TOOLS</h1><div class="hbtns" id="hAct"><button class="hb1" id="hCalc" type="button">Position Size Calculator</button><button class="hb2" id="hJour" type="button">Journal</button></div><div class="hbtns" id="hAnon" hidden><button class="hb1" id="hAuth" type="button">Sign Up / Sign In</button></div><p class="hnote" id="hNote" aria-live="polite"></p></div></section>
+<section id="v-calc" hidden>
 <h1>Forex position calculator</h1>
 <p class="sub">Enter your account size, risk and trade levels. You get the lot size that keeps a stop-out at the loss you chose.</p>
 <div class="grid">
@@ -187,22 +228,24 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
  <div class="take"><input id="reason" type="text" placeholder="Reason for taking this trade (optional)" maxlength="300"><button id="took" class="pri" type="button" disabled>I took this trade</button><div class="toast" id="toast" aria-live="polite"></div></div>
 </section>
 </div>
-<p class="foot">Lot size is rounded down to your chosen lot step, so your real risk is never above your target. For MT4 and MT5, copy min lot, max lot and lot step from Market Watch › Symbols › Specification, because they differ by broker. Margin is an estimate; brokers set leverage per instrument. Metals, indices and crypto vary by broker, so check the contract size field (common defaults: 100 oz gold, 1,000 oz silver, 1 per lot for indices and crypto). A pip is 0.1 for gold, 0.01 for silver and one point for indices and crypto. Spread, slippage and broker contract sizes can change the result. This is a planning aid, not financial advice.</p>
+<p class="foot">Lot size is rounded down to your chosen lot step, so your real risk is never above your target. For MT4 and MT5, copy min lot, max lot and lot step from Market Watch › Symbols › Specification, because they differ by broker. Margin is an estimate; brokers set leverage per instrument. Currency conversion uses daily rates from <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Exchange Rate API</a>. Metals, indices and crypto vary by broker, so check the contract size field (common defaults: 100 oz gold, 1,000 oz silver, 1 per lot for indices and crypto). A pip is 0.1 for gold, 0.01 for silver and one point for indices and crypto. Spread, slippage and broker contract sizes can change the result. This is a planning aid, not financial advice.</p>
 </section>
 <section id="v-acct" hidden>
 <div class="auth">
 <aside class="aside"><div class="ah"><h2>Get Started<br>with Us</h2><p>Complete these easy steps to sync your Journal everywhere.</p></div>
-<div class="steps"><div class="stp on" id="s1"><i>1</i><span>Sign up your account</span></div><div class="stp" id="s2"><i>2</i><span>Sync your Journal</span></div><div class="stp" id="s3"><i>3</i><span>Trade on any device</span></div></div></aside>
+<div class="steps"><div class="stp on" id="s1"><i>1</i><span>Sign up your account</span></div><div class="stp" id="s2"><i>2</i><span>Sync your Journal</span></div></div></aside>
 <div class="form">
+<button class="lnk back" id="acBack" type="button">‹ Back to home</button>
 <div id="acIn"><h1 id="acT">Sign Up Account</h1><p class="sub2" id="acSub">Enter your details to create your account.</p>
 <button class="gbtn" id="acG" type="button"><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Google</button>
 <div class="or">Or</div>
+<div id="acUw"><label for="acU">Username</label><input id="acU" autocomplete="nickname" placeholder="eg. rxtrader" maxlength="24"></div>
 <div class="two" id="acNames"><div><label for="acF">First Name</label><input id="acF" autocomplete="given-name" placeholder="eg. John"></div><div><label for="acL">Last Name</label><input id="acL" autocomplete="family-name" placeholder="eg. Francisco"></div></div>
 <div><label for="acE1">Email</label><input id="acE1" type="email" autocomplete="username" inputmode="email" placeholder="eg. johnfrans@gmail.com"></div>
 <div><label for="acP">Password</label><div class="pw"><input id="acP" type="password" autocomplete="new-password" placeholder="Enter your password"><button type="button" id="acEye" aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div><p class="hint">Must be at least 6 characters.</p></div>
 <button class="wbtn" id="acGo" type="button">Sign Up</button>
 <p class="sw"><span id="acSwT">Already have an account?</span> <button class="lnk" id="acSw" type="button">Log in</button></p></div>
-<div id="acOut" hidden><h1 id="acH">Welcome</h1><p class="sub2">Signed in as <b id="acE"></b></p><div class="acb"><button id="acSync" type="button">Sync now</button><button id="acOutBtn" type="button">Sign out</button></div></div>
+<div id="acOut" hidden><div class="okc" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h1 id="acH">Welcome</h1><p class="sub2">Signed in as <b id="acE"></b></p><div class="acb"><div class="sc"><button id="acSync" class="sbtn" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/><path d="M3 12A9 9 0 0 1 18.5 5.8L21 8"/><path d="M21 3v5h-5"/></svg>Sync now</button><small id="acSt">Not synced yet</small></div><button id="acOutBtn" class="obtn" type="button">Sign out</button></div></div>
 <div class="note" id="acs" aria-live="polite">Your Journal is saved on this device. Sign in to sync it.</div>
 </div></div>
 </section>
@@ -225,6 +268,7 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 </div>
 </section>
 </main>
+</div>
 <script>
 (function(){
 var FX=["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/CAD","AUD/USD","NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","AUD/JPY","EUR/CHF"];
@@ -243,7 +287,8 @@ function calc(){
  ["entry","stop","tp"].forEach(function(i){$(i).step=String(I.s)});
  var needRate=quote!==acc;var mode=$("rmode").value;$("riskLbl").textContent=mode==="amt"?"Risk per trade ("+acc+")":"Risk per trade (%)";
  $("rateWrap").hidden=!needRate;
- $("rateLabel").textContent="1 "+quote+" = ? "+acc+" (check a live rate)";
+ var auto=needRate&&!rateMan&&cross(quote,acc)>0;if(auto)$("rate").value=String(+cross(quote,acc).toPrecision(7));
+ $("rateLabel").textContent="1 "+quote+" = ? "+acc+(rateMan?" \u00b7 your rate":auto?" \u00b7 live rate"+(RT.u?" ("+new Date(RT.u).toLocaleDateString("en-GB",{day:"numeric",month:"short"})+")":"")+", editable":" (enter a rate)");
  var rate=needRate?parseFloat($("rate").value):1;
  var bal=parseFloat($("bal").value),rp=parseFloat($("risk").value);
  var e=parseFloat($("entry").value),s=parseFloat($("stop").value),t=parseFloat($("tp").value);
@@ -277,7 +322,7 @@ function calc(){
  if(lots<=0){$("lots").textContent="0.00";msg.classList.add("err")}
 }
 $("cs").value=info(pairSel.value).c;pairSel.addEventListener("change",function(){$("cs").value=info(pairSel.value).c});
-var last=null,KEY="fxj-v1",J=[],D=[],CFG=window.FX_CFG&&window.FX_CFG.apiKey&&window.FX_CFG.projectId?window.FX_CFG:null,FB=null,user=null,pt=null,unsub=null;
+var last=null,KEY="fxj-v1",J=[],D=[],CFG=window.FX_CFG&&window.FX_CFG.apiKey&&window.FX_CFG.projectId?window.FX_CFG:null,FB=null,user=null,pt=null,unsub=null,authKnown=false,offlineOK=false,fresh=false,PROF={},RT=null,rateMan=false,landed=false;
 function jload(){try{J=JSON.parse(localStorage.getItem(KEY))||[]}catch(x){J=[]}try{D=JSON.parse(localStorage.getItem(KEY+"d"))||[]}catch(x){D=[]}}
 function jsave(){try{localStorage.setItem(KEY,JSON.stringify(J));localStorage.setItem(KEY+"d",JSON.stringify(D))}catch(x){}push()}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -331,7 +376,21 @@ function renderJ(){
  $("jc").textContent=J.length?"("+J.length+")":"";
  $("jlist").innerHTML=J.length?J.map(card).join(""):"<div class='empty'>No trades yet. Calculate a trade, then press “I took this trade”.</div>";
 }
-function route(){var h=location.hash.slice(1);if(h==="account"&&!CFG)h="";var v=h==="journal"||h==="account"?h:"calc";$("v-calc").hidden=v!=="calc";$("v-journal").hidden=v!=="journal";$("v-acct").hidden=v!=="account";["calc","journal","acct"].forEach(function(k){$("t-"+k).setAttribute("aria-current",(k==="acct"?"account":k)===v?"page":"false")});if(v==="journal")renderJ();if(v==="account")renderA();window.scrollTo(0,0)}
+function route(){
+ var h=location.hash.slice(1),authed=!CFG||!!user||offlineOK,booting=!!CFG&&!authKnown;
+ var v=h==="calc"||h==="journal"?(authed?h:"home"):h==="account"&&CFG?"account":"home";
+ $("app").className=(v==="home"?"home ":"")+(booting?"booting ":"")+(authed?"authed":"anon");
+ $("top").hidden=v==="account"&&!authed;
+ $("nav").hidden=!authed||booting;$("hAct").hidden=!authed||booting;$("hAnon").hidden=authed||booting;
+ ["home","calc","journal","acct"].forEach(function(k){$("v-"+k).hidden=(k==="acct"?"account":k)!==v});
+ ["home","calc","journal"].forEach(function(k){$("t-"+k).setAttribute("aria-current",k===v?"page":"false")});
+ if(v==="journal")renderJ();if(v==="account")renderA();window.scrollTo(0,0)}
+function rload(){try{RT=JSON.parse(localStorage.getItem("fxrates"))}catch(x){RT=null}}
+function cross(q,a){return RT&&RT.r&&RT.r[q]&&RT.r[a]?RT.r[a]/RT.r[q]:NaN}
+function rfetch(){
+ if(typeof fetch!=="function"||(RT&&Date.now()-RT.t<36e5))return;
+ var c=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(c)c.abort()},8000);
+ fetch("https://open.er-api.com/v6/latest/USD",c?{signal:c.signal}:{}).then(function(r){return r.json()}).then(function(j){clearTimeout(tm);if(j&&j.result==="success"&&j.rates){RT={t:Date.now(),u:(j.time_last_update_unix||0)*1000,r:j.rates};try{localStorage.setItem("fxrates",JSON.stringify(RT))}catch(x){}calc()}}).catch(function(){clearTimeout(tm)})}
 $("took").addEventListener("click",function(){
  if(!last)return;
  J.unshift({id:Date.now()+Math.random(),u:Date.now(),pair:last.pair,dir:last.dir,o:last.o,s:last.s,t:last.t,rr:last.rr,pw:last.pw,pr:last.pr,cur:last.cur,why:$("reason").value.trim(),st:"open",pl:null});
@@ -350,64 +409,92 @@ $("jlist").addEventListener("click",function(ev){
  jsave();renderJ();
 });
 $("jlist").addEventListener("input",function(ev){var x=ev.target;if(x.classList&&x.classList.contains("reason")){var id=+x.dataset.id;J.forEach(function(t){if(t.id===id){t.why=x.value;t.u=Date.now()}});jsave()}});
-$("t-calc").onclick=function(){location.hash="calc"};$("t-journal").onclick=function(){location.hash="journal"};$("t-acct").onclick=function(){location.hash="account"};
+$("t-home").onclick=function(){location.hash="home"};$("t-calc").onclick=function(){location.hash="calc"};$("t-journal").onclick=function(){location.hash="journal"};$("hCalc").onclick=function(){location.hash="calc"};$("hJour").onclick=function(){location.hash="journal"};$("chip").onclick=function(){location.hash="account"};$("hAuth").onclick=function(){setMode("up");location.hash="account"};$("acBack").onclick=function(){location.hash="home"};
+$("pair").addEventListener("change",function(){rateMan=false});$("acc").addEventListener("change",function(){rateMan=false});$("rate").addEventListener("input",function(){rateMan=true});
 window.addEventListener("hashchange",route);
 function merge(a,ad,b,bd){var dl={},m={};(ad||[]).concat(bd||[]).forEach(function(i){dl[i]=1});[a,b].forEach(function(arr){(arr||[]).forEach(function(t){if(dl[t.id])return;var o=m[t.id];if(!o||(t.u||0)>(o.u||0))m[t.id]=t})});var j=Object.keys(m).map(function(k){return m[k]}).sort(function(x,y){return y.id-x.id});return{j:j,d:Object.keys(dl).map(Number)}}
 function sig(a){return (a||[]).map(function(t){return t.id+":"+(t.u||0)}).join()}
 function tm(){return new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}
-function st(t,bad){var e=$("acs");e.textContent=t;e.className="note"+(bad?" err":"")}
-function renderA(){$("acIn").hidden=!!user;$("acOut").hidden=!user;$("ac").textContent=user?"\u2713":"";$("s1").className="stp"+(user?" done":" on");$("s2").className="stp"+(user?" on":"");if(user){$("acE").textContent=user.email;$("acH").textContent="Welcome, "+(user.displayName||"trader")}}
+function st(t,bad){var m=/^Synced (\d\d:\d\d)$/.exec(t),e=$("acs");if(m){$("acSt").textContent="Synced: "+m[1];e.textContent="";e.className="note";return}e.textContent=t;e.className="note"+(bad?" err":"")}
+function cname(){return user?(user.displayName||(user.email||"").split("@")[0]):(offlineOK?localStorage.getItem("fxname")||"":"")}
+function renderA(){
+ $("acIn").hidden=!!user;$("acOut").hidden=!user;$("acBack").hidden=!!(user||offlineOK);
+ $("s1").className="stp"+(user?" done":" on");$("s2").className="stp"+(user?" on":"");
+ var n=cname();$("chip").hidden=!(CFG&&(user||offlineOK));$("chipN").textContent=n;
+ if(user){try{localStorage.setItem("fxname",n)}catch(x){}$("acE").textContent=user.email;$("acH").textContent="Welcome, "+n}}
+function hn(t){$("hNote").textContent=t}
 function lsave(){try{localStorage.setItem(KEY,JSON.stringify(J));localStorage.setItem(KEY+"d",JSON.stringify(D))}catch(x){}}
 function ref(){return FB.fn.doc(FB.db,"journals",user.uid)}
-function emsg(x){var c=x&&x.code||"",M={"auth/email-already-in-use":"That email already has an account. Try Log in.","auth/weak-password":"Choose a password of at least 6 characters.","auth/invalid-email":"That email address doesn\u2019t look right.","auth/network-request-failed":"Couldn\u2019t reach the server. Check your connection.","auth/too-many-requests":"Too many attempts. Wait a minute and try again.","auth/popup-closed-by-user":"Google sign-in was cancelled.","auth/cancelled-popup-request":"Google sign-in was cancelled.","auth/popup-blocked":"Your browser blocked the Google pop-up. Allow pop-ups and try again.","auth/operation-not-allowed":"That sign-in method isn\u2019t switched on yet in Firebase.","auth/unauthorized-domain":"Add this site\u2019s domain under Firebase Authentication, Settings, Authorized domains.","auth/account-exists-with-different-credential":"That email is already registered with a password. Log in with it instead."};return /invalid-credential|wrong-password|user-not-found/.test(c)?"Wrong email or password.":M[c]||(x&&x.message)||"Something went wrong."}
+function fmsg(x,d){var c=x&&x.code||"";return c==="permission-denied"?"Firestore is blocking access. Publish firestore.rules in Firebase (Firestore Database, Rules tab).":c==="not-found"||c==="failed-precondition"?"The Firestore database hasn\u2019t been created yet (Build, Firestore Database, Create database).":d}
+function emsg(x){var c=x&&x.code||"",M={"auth/invalid-api-key":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/api-key-not-valid":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/auth-domain-config-required":"config.js is missing authDomain.","auth/configuration-not-found":"Authentication isn\u2019t set up for this Firebase project yet (Build, Authentication, Get started).","auth/email-already-in-use":"That email already has an account. Try Log in.","auth/weak-password":"Choose a password of at least 6 characters.","auth/invalid-email":"That email address doesn\u2019t look right.","auth/network-request-failed":"Couldn\u2019t reach the server. Check your connection.","auth/too-many-requests":"Too many attempts. Wait a minute and try again.","auth/popup-closed-by-user":"Google sign-in was cancelled.","auth/cancelled-popup-request":"Google sign-in was cancelled.","auth/popup-blocked":"Your browser blocked the Google pop-up. Allow pop-ups and try again.","auth/operation-not-allowed":"That sign-in method isn\u2019t switched on yet in Firebase.","auth/unauthorized-domain":"Add this site\u2019s domain under Firebase Authentication, Settings, Authorized domains.","auth/account-exists-with-different-credential":"That email is already registered with a password. Log in with it instead."};return /invalid-credential|wrong-password|user-not-found/.test(c)?"Wrong email or password.":M[c]||(x&&x.message)||"Something went wrong."}
 function push(now){
  if(!FB||!user)return Promise.resolve(true);clearTimeout(pt);
  var run=function(){
-  var w=FB.fn.setDoc(ref(),{data:JSON.stringify({j:J,d:D}),updated:Date.now()}),
+  var w=FB.fn.setDoc(ref(),{data:JSON.stringify({j:J,d:D}),updated:Date.now(),p:PROF}),
    t=new Promise(function(_,rej){setTimeout(function(){rej(new Error("timeout"))},6000)});
-  return Promise.race([w,t]).then(function(){st("Synced "+tm());return true}).catch(function(){st("Couldn\u2019t sync. Your entries are safe on this device and will sync when you\u2019re online.",1);return false})};
+  return Promise.race([w,t]).then(function(){st("Synced "+tm());return true}).catch(function(x){st(fmsg(x,"Couldn\u2019t sync. Your entries are safe on this device and will sync when you\u2019re online."),1);return false})};
  if(now)return run();pt=setTimeout(run,800);return Promise.resolve(true)}
 function listen(){
  if(unsub)unsub();
  unsub=FB.fn.onSnapshot(ref(),function(s){
   if(s.metadata.hasPendingWrites)return;
-  var c={j:[],d:[]};try{if(s.exists())c=JSON.parse(s.data().data)}catch(x){}
+  var c={j:[],d:[]};try{if(s.exists())c=JSON.parse(s.data().data)}catch(x){}try{if(s.exists()&&s.data().p)PROF=s.data().p}catch(x){}
   var m=merge(J,D,c.j,c.d);J=m.j;D=m.d;lsave();renderJ();
   if(sig(m.j)===sig(c.j)&&m.d.length===(c.d||[]).length){if(!s.metadata.fromCache)st("Synced "+tm())}else if(!s.metadata.fromCache)push(true)
- },function(){st("Couldn\u2019t reach the server. Showing what is saved on this device.",1)})}
+ },function(x){st(fmsg(x,"Couldn\u2019t reach the server. Showing what is saved on this device."),1)})}
 var amode="up";
-function setMode(m){amode=m;var up=m==="up";$("acT").textContent=up?"Sign Up Account":"Log In";$("acSub").textContent=up?"Enter your details to create your account.":"Welcome back. Enter your details to log in.";$("acNames").hidden=!up;$("acGo").textContent=up?"Sign Up":"Log in";$("acSwT").textContent=up?"Already have an account?":"New here?";$("acSw").textContent=up?"Log in":"Create an account";$("acP").autocomplete=up?"new-password":"current-password"}
+function setMode(m){amode=m;var up=m==="up";$("acT").textContent=up?"Sign Up Account":"Log In";$("acSub").textContent=up?"Enter your details to create your account.":"Welcome back. Enter your details to log in.";$("acNames").hidden=!up;$("acUw").hidden=!up;$("acGo").textContent=up?"Sign Up":"Log in";$("acSwT").textContent=up?"Already have an account?":"New here?";$("acSw").textContent=up?"Log in":"Create an account";$("acP").autocomplete=up?"new-password":"current-password"}
+function setLast(){try{localStorage.setItem("fxlast",String(Date.now()))}catch(x){}}
+function recent(){return Date.now()-(+localStorage.getItem("fxlast")||0)<864e5}
 function auth(k){
  if(!FB){st("Still loading. Try again in a moment.",1);return}
- var e=$("acE1").value.trim(),p=$("acP").value,nm=k==="up"?($("acF").value.trim()+" "+$("acL").value.trim()).trim():"";
+ var e=$("acE1").value.trim(),p=$("acP").value,un=k==="up"?$("acU").value.trim():"";
+ if(k==="up"&&un.length<3){st("Choose a username of at least 3 characters.",1);return}
  if(!e||p.length<6){st("Enter your email and a password of at least 6 characters.",1);return}
- st("Working\u2026");
+ st("Working\u2026");setLast();fresh=true;
  (k==="up"?FB.fn.createUserWithEmailAndPassword(FB.auth,e,p):FB.fn.signInWithEmailAndPassword(FB.auth,e,p)).then(function(cr){
   $("acP").value="";
-  if(nm&&cr&&cr.user&&FB.fn.updateProfile)return FB.fn.updateProfile(cr.user,{displayName:nm}).then(renderA)}).catch(function(x){st(emsg(x),1)})}
+  if(k==="up"&&cr&&cr.user){PROF={f:$("acF").value.trim(),l:$("acL").value.trim()};return FB.fn.updateProfile(cr.user,{displayName:un}).then(function(){renderA();push()})}}).catch(function(x){fresh=false;st(emsg(x),1)})}
 function google(){
  if(!FB){st("Still loading. Try again in a moment.",1);return}
- st("Opening Google\u2026");
- FB.fn.signInWithPopup(FB.auth,new FB.fn.GoogleAuthProvider()).catch(function(x){st(emsg(x),1)})}
+ st("Opening Google\u2026");setLast();fresh=true;
+ FB.fn.signInWithPopup(FB.auth,new FB.fn.GoogleAuthProvider()).catch(function(x){fresh=false;st(emsg(x),1)})}
+function expire(){
+ push(true).then(function(ok){
+  authKnown=true;
+  if(!ok){renderA();route();listen();return}
+  if(unsub){unsub();unsub=null}
+  FB.fn.signOut(FB.auth).then(function(){user=null;J=[];D=[];try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+"d");localStorage.removeItem("fxlast");localStorage.removeItem("fxuid")}catch(x){}renderA();renderJ();route();hn("Your session expired after 24 hours. Please sign in again.");st("Your session expired after 24 hours. Please log in again.",1)})})}
 function signOut(){
  push(true).then(function(ok){
   if(!ok){st("Sign-out cancelled: your latest entries haven\u2019t synced yet. Try again when you\u2019re online.",1);return}
   if(unsub){unsub();unsub=null}
-  FB.fn.signOut(FB.auth).then(function(){user=null;J=[];D=[];try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+"d")}catch(x){}renderA();renderJ();st("Signed out. This device no longer holds your Journal.")})})}
+  FB.fn.signOut(FB.auth).then(function(){user=null;J=[];D=[];try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+"d")}catch(x){}try{localStorage.removeItem("fxlast");localStorage.removeItem("fxuid")}catch(x){}renderA();renderJ();route();st("Signed out. This device no longer holds your Journal.")})})}
 function acctInit(){
  if(!CFG)return;
- $("t-acct").hidden=false;
+ var miss=["apiKey","authDomain","projectId","appId"].filter(function(k){return !CFG[k]});if(miss.length)st("config.js is missing: "+miss.join(", ")+".",1);
  $("acGo").onclick=function(){auth(amode)};$("acSw").onclick=function(){setMode(amode==="up"?"in":"up")};$("acG").onclick=google;$("acEye").onclick=function(){var q=$("acP");q.type=q.type==="password"?"text":"password"};$("acP").addEventListener("keydown",function(ev){if(ev.key==="Enter")auth(amode)});$("acSync").onclick=function(){push(true)};$("acOutBtn").onclick=signOut;
  var B="https://www.gstatic.com/firebasejs/10.14.1/",imp=window.FX_IMPORT||function(u){return import(u)};
  Promise.all([imp(B+"firebase-app.js"),imp(B+"firebase-auth.js"),imp(B+"firebase-firestore.js")]).then(function(m){
   var app=m[0].initializeApp(CFG);
   FB={auth:m[1].getAuth(app),db:m[2].getFirestore(app),fn:Object.assign({},m[1],m[2])};
-  FB.fn.onAuthStateChanged(FB.auth,function(u){user=u||null;renderA();if(unsub){unsub();unsub=null}if(user){st("Syncing\u2026");listen()}})
- }).catch(function(){st("Accounts need an internet connection to load. Your Journal still works on this device.",1)});
+  FB.fn.onAuthStateChanged(FB.auth,function(u){
+   user=u||null;if(unsub){unsub();unsub=null}
+   if(user){
+    var last=+localStorage.getItem("fxlast")||0;
+    if(!last&&!fresh){setLast();last=Date.now()}
+    if(!fresh&&Date.now()-last>864e5){renderA();expire();return}
+    var uid=localStorage.getItem("fxuid");
+    if(uid&&uid!==user.uid){J=[];D=[];lsave();renderJ()}
+    try{localStorage.setItem("fxuid",user.uid)}catch(x){}
+    hn("");if(fresh){fresh=false;landed=true;location.hash="home"}else if(!landed){landed=true;if(location.hash!=="#home")location.hash="home"}
+    st("Syncing\u2026");listen()}
+   authKnown=true;renderA();route()})
+ }).catch(function(){authKnown=true;offlineOK=!!localStorage.getItem("fxuid")&&recent();if(offlineOK&&!landed){landed=true;location.hash="home"}renderA();route();hn(offlineOK?"":"You\u2019re offline. Connect to the internet to sign up or sign in.");st(offlineOK?"You\u2019re offline. Showing the Journal saved on this device.":"Accounts need an internet connection to load. Connect and reload to sign in.",1)});
  window.addEventListener("online",function(){push(true)})}
 $("calh").addEventListener("click",function(ev){var b=ev.target.closest&&ev.target.closest("button[data-cn]");if(!b)return;var k=+b.dataset.cn;if(!k||!cmo)cmo=null;else{cmo.m+=k;if(cmo.m>11){cmo.m=0;cmo.y++}if(cmo.m<0){cmo.m=11;cmo.y--}}renderCal()});
 window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(!$("v-journal").hidden)renderEq()},150)});
-jload();route();acctInit();
+jload();rload();route();acctInit();rfetch();
 $("plat").addEventListener("change",function(){var g=$("plat").value==="generic";$("minlot").value=g?0:0.01;$("maxlot").value=g?"":100});
 $("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
 document.querySelectorAll("input,select").forEach(function(el){el.addEventListener("input",calc);el.addEventListener("change",calc)});

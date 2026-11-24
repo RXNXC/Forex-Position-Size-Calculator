@@ -14,8 +14,8 @@ ACCOUNTS SETUP WITH FIREBASE (one time, free, no card needed)
    config block. Copy apiKey, authDomain, projectId and appId into config.js
    between the quotes. Save.
 6. Upload ALL files to your GitHub repo (replace the old ones). Wait 2 minutes.
-7. Open the app online, close it fully, open it again. An Account tab appears.
-   Create an account, then sign in with the same email on any other device.
+7. Open the app online, close it fully, open it again. The Home page shows a
+   Sign Up / Sign In button. Create an account, then sign in with the same email on any other device.
 
 Google sign-in needs your site domain authorized, so do this even if email sign-in works:
 Authentication > Settings > Authorized domains > Add domain > your-username.github.io
@@ -25,3 +25,10 @@ Authorized domains > Add domain > your-username.github.io
 
 The apiKey is meant to be public. Your data is protected by the rules in
 firestore.rules: each user can only read and write their own Journal.
+
+NOTES
+- Opening the link always shows the Home page. Signed-out visitors (or anyone whose last login was more
+  than 24 hours ago) see a Sign Up / Sign In button; signed-in visitors see the Calculator and Journal buttons.
+- Sign-up asks for a username (shown top-right once you are in). Log in uses your email and password.
+- You are asked to log in again if your last login was more than 24 hours ago.
+- Currency conversion rates load automatically (daily rates from exchangerate-api.com) and are cached for offline use.
