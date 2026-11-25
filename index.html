@@ -160,14 +160,14 @@ textarea.reason{width:100%;font:inherit;color:var(--ink);background:var(--bg);bo
 /*IMG*/:root{--img-home:url(images/home-bg.jpg);--img-auth:url(images/auth-bg.jpg)}/*ENDIMG*/
 .top{max-width:980px;margin:0 auto;padding:16px 18px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .brand{font-weight:800;letter-spacing:.06em;font-size:.95rem;background:linear-gradient(90deg,#12a06e,#7be3b4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.top .tabs{margin:0 0 0 auto;border:0;gap:2px}
+.top .tabs{margin:0;border:0;gap:2px}
 .top .tab{text-transform:uppercase;letter-spacing:.04em;font-size:.78rem;padding:8px 12px}
 .chip{display:flex;align-items:center;gap:8px;border:1.5px solid #12a06e;border-radius:12px;padding:6px 12px;background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer}
 .chip svg{color:#12a06e;flex:none}
 .boot{max-width:980px;margin:80px auto;text-align:center;color:var(--mute)}
 .hc{text-align:left;max-width:640px}
-.hw{margin:0 0 4px;font-size:clamp(1.15rem,3vw,1.7rem);font-weight:500;opacity:.92}
-h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#12b36f 0%,#a8f7d2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hw{margin:0 0 4px;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:500;opacity:.92}
+h1.hb{margin:0 0 22px;font-size:clamp(2.8rem,6.4vw,5.4rem);filter:drop-shadow(0 0 10px rgba(46,204,140,.7)) drop-shadow(0 0 30px rgba(46,204,140,.4));line-height:1.02;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,#12b36f 0%,#a8f7d2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hbtns{display:flex;gap:12px;flex-wrap:wrap}
 .hbtns button{font:inherit;font-weight:600;border-radius:999px;padding:11px 24px;cursor:pointer}
 .hb1{background:#fff;color:#0b1f18;border:2px solid #fff}
@@ -182,7 +182,7 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 #app.home .tab[aria-current="page"]{color:#fff;border-bottom-color:#7be3b4}
 #app.home .chip{color:#fff}
 #app.home main{max-width:none;margin:0;padding:0}
-#v-home{position:relative;isolation:isolate;overflow:hidden;border-radius:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:clamp(96px,14vh,140px) var(--hpad) 64px;color:#fff;background:radial-gradient(80% 65% at 88% 12%,rgba(46,204,140,.42) 0%,transparent 62%),radial-gradient(70% 60% at 10% 100%,rgba(15,107,76,.55) 0%,transparent 65%),linear-gradient(135deg,#03110d 0%,#07352a 46%,#0e6a4b 100%)}
+#v-home{position:relative;isolation:isolate;overflow:hidden;border-radius:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:clamp(96px,14vh,140px) var(--hpad);color:#fff;background:radial-gradient(80% 65% at 88% 12%,rgba(46,204,140,.42) 0%,transparent 62%),radial-gradient(70% 60% at 10% 100%,rgba(15,107,76,.55) 0%,transparent 65%),linear-gradient(135deg,#03110d 0%,#07352a 46%,#0e6a4b 100%)}
 #v-home::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--img-home) center/cover no-repeat;opacity:.3;mix-blend-mode:screen;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 60%);mask-image:linear-gradient(90deg,transparent 0%,#000 60%)}
 #v-home::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,17,13,.55) 0%,transparent 28%,transparent 70%,rgba(3,17,13,.6) 100%)}
 .hnote{margin:14px 0 0;font-size:.85rem;color:rgba(255,255,255,.8);min-height:1.2em}
@@ -205,13 +205,48 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 .mf .acb,.mf .acts{margin-top:12px}
 .mf .acts button.pri{background:var(--accent);color:var(--accent-ink);border:0;font-weight:600}
 @media(max-width:560px){.mg{grid-template-columns:1fr}}
+.brand{margin-right:auto}
+#v-home{justify-content:space-between;gap:clamp(24px,5vw,72px)}
+.hc{flex:1 1 auto}
+.hcards{flex:0 0 min(410px,100%);display:grid;gap:18px}
+.icard{border-radius:22px;padding:20px 22px;border:1.5px solid rgba(140,255,205,.75);box-shadow:0 0 0 1px rgba(120,240,190,.25),0 0 22px rgba(46,204,140,.55),0 0 64px rgba(46,204,140,.22)}
+.icard.lite{background:linear-gradient(135deg,#e2fcee 0%,#a9efcb 100%);color:#06301f}
+.icard.dark{background:linear-gradient(135deg,#0e4f39 0%,#06241b 100%);color:#e8fff4}
+.icard h3{margin:0 0 8px;font-size:1.12rem}
+.icard p{margin:0;font-size:.88rem;line-height:1.5;opacity:.93}
+.icard ul{margin:10px 0 0;padding-left:18px;font-size:.84rem;line-height:1.55}
+.theme{position:relative;display:flex;align-items:center;justify-content:space-between;flex:none;width:58px;height:30px;padding:0 6.5px;border-radius:999px;border:1.5px solid var(--line);background:var(--panel);color:var(--mute);cursor:pointer}
+.theme svg{width:15px;height:15px;position:relative;z-index:1}
+.theme .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#12a06e;transition:transform .25s ease}
+.theme[aria-checked="true"] .knob{transform:translateX(27px)}
+.theme[aria-checked="false"] .sun,.theme[aria-checked="true"] .moon{color:#fff}
+#app.home .theme{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.08);color:rgba(255,255,255,.75)}
+.sup{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:600;font-size:.85rem;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+#app.home .sup{background:rgba(4,28,22,.72);color:#fff;border-color:rgba(122,240,190,.55)}
+.auth.solo{grid-template-columns:1fr;max-width:560px;margin:0 auto;min-height:0}
+.auth.solo .aside{display:none}
+.fp{align-self:flex-start;font-size:.82rem;margin-top:6px;color:var(--mute)}
+.mg2{width:100%;display:grid;gap:10px;margin-top:6px;text-align:left}
+.acd{border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.acd summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none}
+.acd summary::-webkit-details-marker{display:none}
+.acd summary::after{content:"\203a";float:right;transition:transform .2s}
+.acd[open] summary::after{transform:rotate(90deg)}
+.acf2{display:grid;gap:12px;padding:0 14px 14px}
+.ah{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:900px){#v-home{flex-direction:column;align-items:flex-start;justify-content:center}.hcards{flex:none;width:100%;max-width:520px}h1.hb{font-size:clamp(2.8rem,11vw,5rem)}}
 </style>
+<script>try{var __t=localStorage.getItem("fxtheme");if(__t)document.documentElement.setAttribute("data-theme",__t)}catch(e){}</script>
 </head>
 <body>
 <div id="app" class="booting">
-<header class="top" id="top"><span class="brand">RX FX TOOLS</span><nav class="tabs" id="nav" aria-label="Pages"><button class="tab" id="t-home" type="button">Home</button><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button></nav><button class="chip" id="chip" type="button" hidden aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span id="chipN"></span></button></header>
+<header class="top" id="top"><span class="brand">RX FX TOOLS</span><nav class="tabs" id="nav" aria-label="Pages"><button class="tab" id="t-home" type="button">Home</button><button class="tab" id="t-calc" type="button">Position Size Calculator</button><button class="tab" id="t-journal" type="button">Journal <span id="jc"></span></button></nav><button class="chip" id="chip" type="button" hidden aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span id="chipN"></span></button><button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="knob"></span></button></header>
 <main id="main">
-<section id="v-home"><div class="hc"><p class="hw">Welcome to</p><h1 class="hb">RX FX TOOLS</h1><div class="hbtns" id="hAct"><button class="hb1" id="hCalc" type="button">Position Size Calculator</button><button class="hb2" id="hJour" type="button">Journal</button></div><div class="hbtns" id="hAnon" hidden><button class="hb1" id="hAuth" type="button">Sign Up / Sign In</button></div><p class="hnote" id="hNote" aria-live="polite"></p></div></section>
+<section id="v-home"><div class="hc"><p class="hw">Welcome to</p><h1 class="hb">RX FX TOOLS</h1><div class="hbtns" id="hAct"><button class="hb1" id="hCalc" type="button">Position Size Calculator</button><button class="hb2" id="hJour" type="button">Journal</button></div><div class="hbtns" id="hAnon" hidden><button class="hb1" id="hAuth" type="button">Sign Up / Sign In</button></div><p class="hnote" id="hNote" aria-live="polite"></p></div>
+<div class="hcards">
+<article class="icard lite"><h3>Position Size Calculator</h3><p>Know exactly how many lots to trade before you enter. Add your balance, risk and stop loss and get the precise lot size, pip value, margin, potential profit and reward-to-risk.</p><ul><li>60+ forex pairs, plus gold, silver, indices and crypto</li><li>Automatic currency conversion with daily rates</li><li>MT4 and MT5 lot limits and lot steps</li></ul></article>
+<article class="icard dark"><h3>Trade Journal</h3><p>Record every trade and learn from it.</p><ul><li>Log trades in one tap from the calculator, or add past trades by hand</li><li>Win and loss tracking with a live dashboard and win rate</li><li>Equity curve and a profit and loss calendar</li><li>Your reason for every trade, editable any time</li><li>Syncs to every device with your account</li></ul></article>
+</div></section>
 <section id="v-calc" hidden>
 <h1>Forex position calculator</h1>
 <p class="sub">Enter your account size, risk and trade levels. You get the lot size that keeps a stop-out at the loss you chose.</p>
@@ -247,7 +282,7 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 <p class="foot">Lot size is rounded down to your chosen lot step, so your real risk is never above your target. For MT4 and MT5, copy min lot, max lot and lot step from Market Watch › Symbols › Specification, because they differ by broker. Margin is an estimate; brokers set leverage per instrument. Currency conversion uses daily rates from <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Exchange Rate API</a>. Metals, indices and crypto vary by broker, so check the contract size field (common defaults: 100 oz gold, 1,000 oz silver, 1 per lot for indices and crypto). A pip is 0.1 for gold, 0.01 for silver and one point for indices and crypto. Spread, slippage and broker contract sizes can change the result. This is a planning aid, not financial advice.</p>
 </section>
 <section id="v-acct" hidden>
-<div class="auth">
+<div class="auth" id="authBox">
 <aside class="aside"><div class="ah"><h2>Get Started<br>with Us</h2><p>Complete these easy steps to sync your Journal everywhere.</p></div>
 <div class="steps"><div class="stp on" id="s1"><i>1</i><span>Sign up your account</span></div><div class="stp" id="s2"><i>2</i><span>Sync your Journal</span></div></div></aside>
 <div class="form">
@@ -258,10 +293,15 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 <div id="acUw"><label for="acU">Username</label><input id="acU" autocomplete="nickname" placeholder="eg. rxtrader" maxlength="24"></div>
 <div class="two" id="acNames"><div><label for="acF">First Name</label><input id="acF" autocomplete="given-name" placeholder="eg. John"></div><div><label for="acL">Last Name</label><input id="acL" autocomplete="family-name" placeholder="eg. Francisco"></div></div>
 <div><label for="acE1">Email</label><input id="acE1" type="email" autocomplete="username" inputmode="email" placeholder="eg. johnfrans@gmail.com"></div>
-<div><label for="acP">Password</label><div class="pw"><input id="acP" type="password" autocomplete="new-password" placeholder="Enter your password"><button type="button" id="acEye" aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div><p class="hint">Must be at least 6 characters.</p></div>
+<div><label for="acP">Password</label><div class="pw"><input id="acP" type="password" autocomplete="new-password" placeholder="Enter your password"><button type="button" id="acEye" aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div><p class="hint" id="acHint">Must be at least 6 characters.</p><button class="lnk fp" id="acFp" type="button" hidden>Forgot password?</button></div>
 <button class="wbtn" id="acGo" type="button">Sign Up</button>
 <p class="sw"><span id="acSwT">Already have an account?</span> <button class="lnk" id="acSw" type="button">Log in</button></p></div>
-<div id="acOut" hidden><div class="okc" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h1 id="acH">Welcome</h1><p class="sub2">Signed in as <b id="acE"></b></p><div class="acb"><div class="sc"><button id="acSync" class="sbtn" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/><path d="M3 12A9 9 0 0 1 18.5 5.8L21 8"/><path d="M21 3v5h-5"/></svg>Sync now</button><small id="acSt">Not synced yet</small></div><button id="acOutBtn" class="obtn" type="button">Sign out</button></div></div>
+<div id="acOut" hidden><div class="okc" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h1 id="acH">Welcome</h1><p class="sub2">Signed in as <b id="acE"></b></p><div class="acb"><div class="sc"><button id="acSync" class="sbtn" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/><path d="M3 12A9 9 0 0 1 18.5 5.8L21 8"/><path d="M21 3v5h-5"/></svg>Sync now</button><small id="acSt">Not synced yet</small></div><button id="acOutBtn" class="obtn" type="button">Sign out</button></div>
+<div id="acGn" class="note" hidden>You signed in with Google, so your password and email are managed by your Google account.</div>
+<div id="acMg" class="mg2">
+<details class="acd"><summary>Change password</summary><div class="acf2"><div><label for="cpC">Current password</label><input id="cpC" type="password" autocomplete="current-password"></div><div><label for="cpN">New password (6+ characters)</label><input id="cpN" type="password" autocomplete="new-password"></div><div><label for="cpN2">Confirm new password</label><input id="cpN2" type="password" autocomplete="new-password"></div><button class="wbtn" id="cpGo" type="button">Update password</button></div></details>
+<details class="acd"><summary>Change email</summary><div class="acf2"><div><label for="ceE">New email</label><input id="ceE" type="email" autocomplete="email" inputmode="email"></div><div><label for="ceC">Current password</label><input id="ceC" type="password" autocomplete="current-password"></div><p class="hint">We send a confirmation link to the new address. Your email changes after you open it.</p><button class="wbtn" id="ceGo" type="button">Send confirmation link</button></div></details>
+</div></div>
 <div class="note" id="acs" aria-live="polite">Your Journal is saved on this device. Sign in to sync it.</div>
 </div></div>
 </section>
@@ -300,13 +340,17 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.6rem,9.5vw,5rem);line-height:1.02;font-w
 </div>
 </section>
 </main>
+<a class="sup" href="mailto:shadxw752@gmail.com?subject=RX%20FX%20TOOLS%20support" aria-label="Email support"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Support</a>
 </div>
 <script>
 (function(){
-var FX=["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/CAD","AUD/USD","NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","AUD/JPY","EUR/CHF"];
+var MAJ=["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/CAD","AUD/USD","NZD/USD"],
+MIN=["EUR/GBP","EUR/JPY","EUR/CHF","EUR/AUD","EUR/CAD","EUR/NZD","GBP/JPY","GBP/CHF","GBP/AUD","GBP/CAD","GBP/NZD","AUD/JPY","AUD/CHF","AUD/CAD","AUD/NZD","NZD/JPY","NZD/CHF","NZD/CAD","CAD/JPY","CAD/CHF","CHF/JPY"],
+EXO=["USD/MXN","USD/ZAR","USD/TRY","USD/SEK","USD/NOK","USD/DKK","USD/PLN","USD/HUF","USD/CZK","USD/SGD","USD/HKD","USD/CNH","USD/THB","EUR/SEK","EUR/NOK","EUR/DKK","EUR/PLN","EUR/HUF","EUR/CZK","EUR/TRY","EUR/ZAR","EUR/MXN","EUR/SGD","GBP/SEK","GBP/NOK","GBP/DKK","GBP/PLN","GBP/ZAR","GBP/TRY","GBP/MXN","GBP/SGD","AUD/SGD","SGD/JPY","NOK/JPY","SEK/JPY","ZAR/JPY","MXN/JPY","TRY/JPY"],
+FX=MAJ.concat(MIN,EXO),PIPQ={JPY:0.01,HUF:0.01,THB:0.01,CZK:0.001},AL={CNH:"CNY"};
 var SPEC={"XAU/USD":["USD",100,0.1,0.01,"oz of gold"],"XAG/USD":["USD",1000,0.01,0.001,"oz of silver"],"US30":["USD",1,1,0.1,"contracts"],"US100":["USD",1,1,0.1,"contracts"],"SPX500":["USD",1,1,0.1,"contracts"],"UK100":["GBP",1,1,0.1,"contracts"],"GER40":["EUR",1,1,0.1,"contracts"],"JP225":["JPY",1,1,1,"contracts"],"BTC/USD":["USD",1,1,0.01,"BTC"],"ETH/USD":["USD",1,1,0.01,"ETH"],"BCH/USD":["USD",1,1,0.01,"BCH"],"LTC/USD":["USD",1,1,0.01,"LTC"],"SOL/USD":["USD",1,1,0.01,"SOL"]};
-var GROUPS=[["Forex",FX],["Metals",["XAU/USD","XAG/USD"]],["Indices",["US30","US100","SPX500","UK100","GER40","JP225"]],["Crypto",["BTC/USD","ETH/USD","BCH/USD","LTC/USD","SOL/USD"]]];
-function info(p){var s=SPEC[p];if(s)return{q:s[0],c:s[1],p:s[2],s:s[3],u:s[4],n:s[2]===1?"points":"pips"};var q=p.split("/")[1],j=q==="JPY";return{q:q,c:100000,p:j?0.01:0.0001,s:j?0.001:0.00001,u:"units of "+p.split("/")[0],n:"pips"}}
+var GROUPS=[["Forex majors",MAJ],["Forex minors and crosses",MIN],["Forex exotics",EXO],["Metals",["XAU/USD","XAG/USD"]],["Indices",["US30","US100","SPX500","UK100","GER40","JP225"]],["Crypto",["BTC/USD","ETH/USD","BCH/USD","LTC/USD","SOL/USD"]]];
+function info(p){var s=SPEC[p];if(s)return{q:s[0],c:s[1],p:s[2],s:s[3],u:s[4],n:s[2]===1?"points":"pips"};var q=p.split("/")[1],z=PIPQ[q]||0.0001;return{q:q,c:100000,p:z,s:z/10,u:"units of "+p.split("/")[0],n:"pips"}}
 var $=function(i){return document.getElementById(i)};
 var pairSel=$("pair");
 GROUPS.forEach(function(g){var og=document.createElement("optgroup");og.label=g[0];g[1].forEach(function(p){var o=document.createElement("option");o.textContent=p;og.appendChild(o)});pairSel.appendChild(og)});
@@ -335,7 +379,7 @@ function calc(){
  var riskAmt=mode==="amt"?rp:bal*rp/100;
  var pipPerLot=cs*pip*rate;
  var raw=riskAmt/(pips*pipPerLot);
- var st=parseFloat($("lstep").value);var lots=st>0?Math.floor(raw/st+1e-9)*st:raw;lots=+lots.toFixed(6);var mn=parseFloat($("minlot").value)||0,mx=parseFloat($("maxlot").value)||Infinity;var capped=lots>mx;if(capped)lots=mx;var below=lots<mn;if(below)lots=0;
+ var st=parseFloat($("lstep").value);var lots=st>0?Math.floor(raw/st+1e-9)*st:raw;lots=+lots.toPrecision(12);var mn=parseFloat($("minlot").value)||0,mx=parseFloat($("maxlot").value)||Infinity;var capped=lots>mx;if(capped)lots=mx;var below=lots<mn;if(below)lots=0;
  var units=lots*cs;var lev=parseFloat($("lev").value),mg=lev>0?units*e*rate/lev:NaN;
  var realRisk=lots*pips*pipPerLot;
  var ld=st>0?Math.max(2,(String(st).split(".")[1]||"").length):4;$("lots").textContent=fmt(lots,ld);
@@ -412,13 +456,13 @@ function route(){
  var h=location.hash.slice(1),authed=!CFG||!!user||offlineOK,booting=!!CFG&&!authKnown;
  var v=h==="calc"||h==="journal"?(authed?h:"home"):h==="account"&&CFG?"account":"home";
  $("app").className=(v==="home"?"home ":"")+(booting?"booting ":"")+(authed?"authed":"anon");
- $("top").hidden=v==="account"&&!authed;
+ $("top").hidden=false;
  $("nav").hidden=!authed||booting;$("hAct").hidden=!authed||booting;$("hAnon").hidden=authed||booting;
  ["home","calc","journal","acct"].forEach(function(k){$("v-"+k).hidden=(k==="acct"?"account":k)!==v});
  ["home","calc","journal"].forEach(function(k){$("t-"+k).setAttribute("aria-current",k===v?"page":"false")});
  if(v==="journal")renderJ();if(v==="account")renderA();window.scrollTo(0,0)}
 function rload(){try{RT=JSON.parse(localStorage.getItem("fxrates"))}catch(x){RT=null}}
-function cross(q,a){return RT&&RT.r&&RT.r[q]&&RT.r[a]?RT.r[a]/RT.r[q]:NaN}
+function cross(q,a){q=AL[q]||q;a=AL[a]||a;return RT&&RT.r&&RT.r[q]&&RT.r[a]?RT.r[a]/RT.r[q]:NaN}
 function rfetch(){
  if(typeof fetch!=="function"||(RT&&Date.now()-RT.t<36e5))return;
  var c=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(c)c.abort()},8000);
@@ -450,15 +494,17 @@ function tm(){return new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minut
 function st(t,bad){var m=/^Synced (\d\d:\d\d)$/.exec(t),e=$("acs");if(m){$("acSt").textContent="Synced: "+m[1];e.textContent="";e.className="note";return}e.textContent=t;e.className="note"+(bad?" err":"")}
 function cname(){return user?(user.displayName||(user.email||"").split("@")[0]):(offlineOK?localStorage.getItem("fxname")||"":"")}
 function renderA(){
+ $("authBox").className="auth"+(user?" solo":"");
  $("acIn").hidden=!!user;$("acOut").hidden=!user;$("acBack").hidden=!!(user||offlineOK);
  $("s1").className="stp"+(user?" done":" on");$("s2").className="stp"+(user?" on":"");
  var n=cname();$("chip").hidden=!(CFG&&(user||offlineOK));$("chipN").textContent=n;
- if(user){try{localStorage.setItem("fxname",n)}catch(x){}$("acE").textContent=user.email;$("acH").textContent="Welcome, "+n}}
+ if(user){try{localStorage.setItem("fxname",n)}catch(x){}$("acE").textContent=user.email;$("acH").textContent="Welcome, "+n;
+  var pd=user.providerData,pw=!pd||pd.some(function(p){return p.providerId==="password"});$("acMg").hidden=!pw;$("acGn").hidden=pw}}
 function hn(t){$("hNote").textContent=t}
 function lsave(){try{localStorage.setItem(KEY,JSON.stringify(J));localStorage.setItem(KEY+"d",JSON.stringify(D))}catch(x){}}
 function ref(){return FB.fn.doc(FB.db,"journals",user.uid)}
 function fmsg(x,d){var c=x&&x.code||"";return c==="permission-denied"?"Firestore is blocking access. Publish firestore.rules in Firebase (Firestore Database, Rules tab).":c==="not-found"||c==="failed-precondition"?"The Firestore database hasn\u2019t been created yet (Build, Firestore Database, Create database).":d}
-function emsg(x){var c=x&&x.code||"",M={"auth/invalid-api-key":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/api-key-not-valid":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/auth-domain-config-required":"config.js is missing authDomain.","auth/configuration-not-found":"Authentication isn\u2019t set up for this Firebase project yet (Build, Authentication, Get started).","auth/email-already-in-use":"That email already has an account. Try Log in.","auth/weak-password":"Choose a password of at least 6 characters.","auth/invalid-email":"That email address doesn\u2019t look right.","auth/network-request-failed":"Couldn\u2019t reach the server. Check your connection.","auth/too-many-requests":"Too many attempts. Wait a minute and try again.","auth/popup-closed-by-user":"Google sign-in was cancelled.","auth/cancelled-popup-request":"Google sign-in was cancelled.","auth/popup-blocked":"Your browser blocked the Google pop-up. Allow pop-ups and try again.","auth/operation-not-allowed":"That sign-in method isn\u2019t switched on yet in Firebase.","auth/unauthorized-domain":"Add this site\u2019s domain under Firebase Authentication, Settings, Authorized domains.","auth/account-exists-with-different-credential":"That email is already registered with a password. Log in with it instead."};return /invalid-credential|wrong-password|user-not-found/.test(c)?"Wrong email or password.":M[c]||(x&&x.message)||"Something went wrong."}
+function emsg(x){var c=x&&x.code||"",M={"auth/requires-recent-login":"For security, please sign out, sign in again, then retry.","auth/invalid-api-key":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/api-key-not-valid":"The apiKey in config.js isn\u2019t valid. Copy it again from Firebase Project settings.","auth/auth-domain-config-required":"config.js is missing authDomain.","auth/configuration-not-found":"Authentication isn\u2019t set up for this Firebase project yet (Build, Authentication, Get started).","auth/email-already-in-use":"That email already has an account. Try Log in.","auth/weak-password":"Choose a password of at least 6 characters.","auth/invalid-email":"That email address doesn\u2019t look right.","auth/network-request-failed":"Couldn\u2019t reach the server. Check your connection.","auth/too-many-requests":"Too many attempts. Wait a minute and try again.","auth/popup-closed-by-user":"Google sign-in was cancelled.","auth/cancelled-popup-request":"Google sign-in was cancelled.","auth/popup-blocked":"Your browser blocked the Google pop-up. Allow pop-ups and try again.","auth/operation-not-allowed":"That sign-in method isn\u2019t switched on yet in Firebase.","auth/unauthorized-domain":"Add this site\u2019s domain under Firebase Authentication, Settings, Authorized domains.","auth/account-exists-with-different-credential":"That email is already registered with a password. Log in with it instead."};return /invalid-credential|wrong-password|user-not-found/.test(c)?"Wrong email or password.":M[c]||(x&&x.message)||"Something went wrong."}
 function push(now){
  if(!FB||!user)return Promise.resolve(true);clearTimeout(pt);
  var run=function(){
@@ -475,7 +521,7 @@ function listen(){
   if(sig(m.j)===sig(c.j)&&m.d.length===(c.d||[]).length){if(!s.metadata.fromCache)st("Synced "+tm())}else if(!s.metadata.fromCache)push(true)
  },function(x){st(fmsg(x,"Couldn\u2019t reach the server. Showing what is saved on this device."),1)})}
 var amode="up";
-function setMode(m){amode=m;var up=m==="up";$("acT").textContent=up?"Sign Up Account":"Log In";$("acSub").textContent=up?"Enter your details to create your account.":"Welcome back. Enter your details to log in.";$("acNames").hidden=!up;$("acUw").hidden=!up;$("acGo").textContent=up?"Sign Up":"Log in";$("acSwT").textContent=up?"Already have an account?":"New here?";$("acSw").textContent=up?"Log in":"Create an account";$("acP").autocomplete=up?"new-password":"current-password"}
+function setMode(m){amode=m;var up=m==="up";$("acT").textContent=up?"Sign Up Account":"Log In";$("acSub").textContent=up?"Enter your details to create your account.":"Welcome back. Enter your details to log in.";$("acNames").hidden=!up;$("acUw").hidden=!up;$("acFp").hidden=up;$("acHint").hidden=!up;$("acGo").textContent=up?"Sign Up":"Log in";$("acSwT").textContent=up?"Already have an account?":"New here?";$("acSw").textContent=up?"Log in":"Create an account";$("acP").autocomplete=up?"new-password":"current-password"}
 function setLast(){try{localStorage.setItem("fxlast",String(Date.now()))}catch(x){}}
 function recent(){return Date.now()-(+localStorage.getItem("fxlast")||0)<864e5}
 function auth(k){
@@ -505,7 +551,7 @@ function signOut(){
 function acctInit(){
  if(!CFG)return;
  var miss=["apiKey","authDomain","projectId","appId"].filter(function(k){return !CFG[k]});if(miss.length)st("config.js is missing: "+miss.join(", ")+".",1);
- $("acGo").onclick=function(){auth(amode)};$("acSw").onclick=function(){setMode(amode==="up"?"in":"up")};$("acG").onclick=google;$("acEye").onclick=function(){var q=$("acP");q.type=q.type==="password"?"text":"password"};$("acP").addEventListener("keydown",function(ev){if(ev.key==="Enter")auth(amode)});$("acSync").onclick=function(){push(true)};$("acOutBtn").onclick=signOut;
+ $("acGo").onclick=function(){auth(amode)};$("acSw").onclick=function(){setMode(amode==="up"?"in":"up")};$("acG").onclick=google;$("acEye").onclick=function(){var q=$("acP");q.type=q.type==="password"?"text":"password"};$("acP").addEventListener("keydown",function(ev){if(ev.key==="Enter")auth(amode)});$("acSync").onclick=function(){push(true)};$("acOutBtn").onclick=signOut;$("acFp").onclick=forgot;$("cpGo").onclick=chPw;$("ceGo").onclick=chEm;
  var B="https://www.gstatic.com/firebasejs/10.14.1/",imp=window.FX_IMPORT||function(u){return import(u)};
  Promise.all([imp(B+"firebase-app.js"),imp(B+"firebase-auth.js"),imp(B+"firebase-firestore.js")]).then(function(m){
   var app=m[0].initializeApp(CFG);
@@ -552,7 +598,34 @@ function mfSave(){
  var m=$("jmsg");m.textContent="Entry added \u2713";setTimeout(function(){m.textContent=""},2500)}
 $("mAdd").onclick=mfOpen;$("mCancel").onclick=mfClose;$("mSave").onclick=mfSave;
 $("mRes").addEventListener("change",mfAmt);["mOpen","mStop","mTp"].forEach(function(i){$(i).addEventListener("input",mfRR)});
-jload();rload();route();acctInit();rfetch();
+function pmsg(x){var c=x&&x.code||"";return /invalid-credential|wrong-password/.test(c)?"That current password isn\u2019t right.":c==="auth/email-already-in-use"?"That email is already used by another account.":emsg(x)}
+function forgot(){
+ var e=$("acE1").value.trim();
+ if(!FB){st("Still loading. Try again in a moment.",1);return}
+ if(!/^\S+@\S+\.\S+$/.test(e)){st("Type your email above, then tap Forgot password.",1);return}
+ var done=function(){st("If there\u2019s an account for "+e+", a reset link is on its way. Check your inbox and spam folder.")};
+ st("Sending reset link\u2026");
+ FB.fn.sendPasswordResetEmail(FB.auth,e).then(done).catch(function(x){if(x&&x.code==="auth/user-not-found")done();else st(emsg(x),1)})}
+function reauth(c){return FB.fn.reauthenticateWithCredential(user,FB.fn.EmailAuthProvider.credential(user.email,c))}
+function chPw(){
+ var c=$("cpC").value,n=$("cpN").value,n2=$("cpN2").value;
+ if(!c){st("Enter your current password.",1);return}
+ if(n.length<6){st("Choose a new password of at least 6 characters.",1);return}
+ if(n!==n2){st("The new passwords don\u2019t match.",1);return}
+ if(n===c){st("The new password must be different from the current one.",1);return}
+ st("Updating password\u2026");
+ reauth(c).then(function(){return FB.fn.updatePassword(user,n)}).then(function(){["cpC","cpN","cpN2"].forEach(function(i){$(i).value=""});st("Password updated.")}).catch(function(x){st(pmsg(x),1)})}
+function chEm(){
+ var e=$("ceE").value.trim(),c=$("ceC").value;
+ if(!/^\S+@\S+\.\S+$/.test(e)){st("That email address doesn\u2019t look right.",1);return}
+ if(e.toLowerCase()===(user.email||"").toLowerCase()){st("That is already your email.",1);return}
+ if(!c){st("Enter your current password to confirm.",1);return}
+ st("Sending confirmation\u2026");
+ reauth(c).then(function(){return FB.fn.verifyBeforeUpdateEmail(user,e)}).then(function(){$("ceC").value="";$("ceE").value="";st("We sent a confirmation link to "+e+". Your email changes after you open it. Then sign in again with the new address.")}).catch(function(x){st(pmsg(x),1)})}
+function theme(t){var dark=t?t==="dark":!!(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(t&&document.documentElement)document.documentElement.setAttribute("data-theme",t);$("theme").setAttribute("aria-checked",dark?"true":"false")}
+function themeInit(){var t=null;try{t=localStorage.getItem("fxtheme")}catch(x){}theme(t)}
+$("theme").onclick=function(){var t=$("theme").getAttribute("aria-checked")==="true"?"light":"dark";try{localStorage.setItem("fxtheme",t)}catch(x){}theme(t)};
+jload();rload();themeInit();route();acctInit();rfetch();
 $("plat").addEventListener("change",function(){var g=$("plat").value==="generic";$("minlot").value=g?0:0.01;$("maxlot").value=g?"":100});
 $("rmode").addEventListener("change",function(){var b=parseFloat($("bal").value),v=parseFloat($("risk").value);if(b>0&&isFinite(v)){$("risk").value=$("rmode").value==="amt"?+(b*v/100).toFixed(2):+(v/b*100).toFixed(2)}});
 document.querySelectorAll("input,select").forEach(function(el){el.addEventListener("input",calc);el.addEventListener("change",calc)});

@@ -32,3 +32,10 @@ NOTES
 - Sign-up asks for a username (shown top-right once you are in). Log in uses your email and password.
 - You are asked to log in again if your last login was more than 24 hours ago.
 - Currency conversion rates load automatically (daily rates from exchangerate-api.com) and are cached for offline use.
+
+FORGOT PASSWORD / CHANGE EMAIL (no extra setup needed)
+- "Forgot password?" on the log-in page, and "Change password" / "Change email" on the account page,
+  use Firebase's built-in emails. Make sure Email/Password sign-in is enabled (step 2).
+- To customise the wording of those emails: Authentication > Templates (optional).
+- Google-only accounts manage their password and email through Google, so those forms are hidden for them.
+- Support link (bottom-right of every page) emails shadxw752@gmail.com.
