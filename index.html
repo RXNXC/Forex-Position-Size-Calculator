@@ -235,6 +235,16 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.8rem,6.4vw,5.4rem);filter:drop-shadow(0 
 .acf2{display:grid;gap:12px;padding:0 14px 14px}
 .ah{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:900px){#v-home{flex-direction:column;align-items:flex-start;justify-content:center}.hcards{flex:none;width:100%;max-width:520px}h1.hb{font-size:clamp(2.8rem,11vw,5rem)}}
+.cbx{position:relative}
+.cbx input{padding-right:40px}
+.cbb{position:absolute;right:4px;top:4px;bottom:4px;width:34px;border:0;background:none;color:var(--mute);display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:6px}
+.cbl{position:absolute;left:auto;right:0;width:max(100%,250px);top:calc(100% + 4px);z-index:25;max-height:290px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:6px}
+.cbg{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);padding:8px 8px 4px}
+.cbo{display:block;width:100%;text-align:left;font:inherit;font-size:.92rem;background:none;border:0;border-radius:6px;padding:8px 10px;color:var(--ink);cursor:pointer}
+.cbo:hover,.cbo.act{background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.cbo[aria-selected="true"]{font-weight:700}
+.cbo small{color:var(--mute);margin-left:8px;font-weight:400;font-size:.78rem}
+.cbn{padding:10px;color:var(--mute);font-size:.88rem}
 </style>
 <script>try{var __t=localStorage.getItem("fxtheme");if(__t)document.documentElement.setAttribute("data-theme",__t)}catch(e){}</script>
 </head>
@@ -259,8 +269,9 @@ h1.hb{margin:0 0 22px;font-size:clamp(2.8rem,6.4vw,5.4rem);filter:drop-shadow(0 
  </div>
  <div class="row">
   <div class="f"><label for="risk" id="riskLbl">Risk per trade (%)</label><div class="grp"><input id="risk" type="number" min="0" step="any" value="1" inputmode="decimal"><select id="rmode" aria-label="Risk type"><option value="pct">%</option><option value="amt">Amount</option></select></div></div>
-  <div class="f"><label for="pair">Instrument</label>
-   <select id="pair"></select></div>
+  <div class="f"><label for="pairQ">Instrument</label>
+   <div class="cbx" id="cbx"><input id="pairQ" type="text" role="combobox" aria-expanded="false" aria-controls="pairL" aria-autocomplete="list" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Type or pick, e.g. EURUSD"><button type="button" id="pairB" class="cbb" aria-label="Show all instruments" tabindex="-1"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="cbl" id="pairL" role="listbox" hidden></div></div>
+   <select id="pair" hidden aria-hidden="true" tabindex="-1"></select></div>
  </div>
  <div class="row">
   <div class="f"><label for="entry">Open price</label><input id="entry" type="number" step="any" value="1.0850" inputmode="decimal"></div>
@@ -354,6 +365,60 @@ function info(p){var s=SPEC[p];if(s)return{q:s[0],c:s[1],p:s[2],s:s[3],u:s[4],n:
 var $=function(i){return document.getElementById(i)};
 var pairSel=$("pair");
 GROUPS.forEach(function(g){var og=document.createElement("optgroup");og.label=g[0];g[1].forEach(function(p){var o=document.createElement("option");o.textContent=p;og.appendChild(o)});pairSel.appendChild(og)});
+var NAME={"XAU/USD":"Gold","XAG/USD":"Silver","US30":"Dow Jones","US100":"Nasdaq","SPX500":"S&P 500","UK100":"FTSE 100","GER40":"DAX","JP225":"Nikkei 225","BTC/USD":"Bitcoin","ETH/USD":"Ethereum","BCH/USD":"Bitcoin Cash","LTC/USD":"Litecoin","SOL/USD":"Solana"},
+ALIAS={"XAU/USD":"gold xauusd","XAG/USD":"silver xagusd","US30":"dow dowjones dj30 ws30 wallstreet","US100":"nasdaq nas100 ustec ndx","SPX500":"sp500 spx s&p500 us500","UK100":"ftse ftse100 uk","GER40":"dax dax40 dax30 de40 germany","JP225":"nikkei nikkei225 jpn225 nk225 japan","BTC/USD":"bitcoin btc","ETH/USD":"ethereum ether eth","BCH/USD":"bitcoincash bch","LTC/USD":"litecoin ltc","SOL/USD":"solana sol"},
+cbAct=-1,cbTyped=false,cbOpts=[];
+function nz(s){return String(s).toLowerCase().replace(/[^a-z0-9]/g,"")}
+function cbScore(p,q){
+ var k=nz(p),al=(ALIAS[p]||"").split(" ").map(nz).concat(nz(NAME[p]||"")).filter(Boolean);
+ if(k===q)return 0;if(k.indexOf(q)===0)return 1;
+ if(al.some(function(a){return a===q}))return 1;
+ if(al.some(function(a){return a.indexOf(q)===0}))return 2;
+ if(k.indexOf(q)>0)return 3;
+ if(al.some(function(a){return a.indexOf(q)>0}))return 4;
+ return 9}
+function cbMatch(raw){
+ var q=nz(raw),all=FX.concat(Object.keys(SPEC)),res=[],swap=false;
+ if(!q)return{list:all,swap:false};
+ all.forEach(function(p,i){var s=cbScore(p,q);if(s<9)res.push([s,i,p])});
+ if(!res.length&&q.length===6){var w=q.slice(3)+q.slice(0,3);all.forEach(function(p,i){if(nz(p)===w)res.push([0,i,p])});swap=res.length>0}
+ res.sort(function(a,b){return a[0]-b[0]||a[1]-b[1]});
+ return{list:res.map(function(r){return r[2]}),swap:swap}}
+function cbRender(raw){
+ var L=$("pairL"),m=cbMatch(raw),cur=pairSel.value,h="";cbOpts=m.list;
+ if(!m.list.length){L.innerHTML="<div class='cbn'>No matching instrument. Pick one from the list.</div>";cbAct=-1;return m}
+ var item=function(p,i){return "<button type='button' class='cbo"+(i===cbAct?" act":"")+"' role='option' id='cbo"+i+"' data-p='"+p+"' aria-selected='"+(p===cur)+"'>"+p+(NAME[p]?"<small>"+NAME[p]+"</small>":"")+"</button>"};
+ if(!nz(raw)||!cbTyped){var i=0;GROUPS.forEach(function(g){h+="<div class='cbg'>"+g[0]+"</div>"+g[1].map(function(p){return item(p,i++)}).join("")});cbOpts=[].concat.apply([],GROUPS.map(function(g){return g[1]}))}
+ else{if(m.swap)h+="<div class='cbn'>Showing "+m.list[0]+" (pairs are quoted base/quote)</div>";h+=m.list.map(item).join("")}
+ L.innerHTML=h;return m}
+function cbOpen(raw,focusSel){
+ var L=$("pairL");if(L.hidden){cbAct=-1}
+ cbRender(raw);L.hidden=false;$("pairQ").setAttribute("aria-expanded","true");
+ if(cbTyped&&nz(raw)&&cbOpts.length){cbAct=0;cbMark()}
+ if(focusSel){var s=L.querySelector("[aria-selected='true']");if(s)L.scrollTop=Math.max(0,s.offsetTop-L.clientHeight/2)}}
+function cbClose(){$("pairL").hidden=true;$("pairQ").setAttribute("aria-expanded","false");cbAct=-1}
+function cbMark(){var L=$("pairL"),els=L.querySelectorAll(".cbo");for(var i=0;i<els.length;i++){els[i].className="cbo"+(i===cbAct?" act":"");if(i===cbAct){els[i].scrollIntoView&&els[i].scrollIntoView({block:"nearest"});$("pairQ").setAttribute("aria-activedescendant",els[i].id)}}}
+function cbCommit(p){pairSel.value=p;$("pairQ").value=p;cbTyped=false;cbClose();if(pairSel.dispatchEvent)pairSel.dispatchEvent(new Event("change",{bubbles:true}))}
+function cbRevert(){cbTyped=false;$("pairQ").value=pairSel.value;cbClose()}
+function cbLeave(){var Q=$("pairQ");if(!cbTyped){cbClose();return}var m=cbMatch(Q.value),q=nz(Q.value);if(q&&m.list.length&&nz(m.list[0])===q)cbCommit(m.list[0]);else cbRevert()}
+(function(){
+ var Q=$("pairQ");Q.value=pairSel.value;
+ Q.addEventListener("focus",function(){cbTyped=false;if(Q.select)Q.select();cbOpen("",true)});
+ Q.addEventListener("input",function(){cbTyped=true;cbOpen(Q.value,false)});
+ Q.addEventListener("keydown",function(e){
+  var k=e.key,L=$("pairL");
+  if(k==="ArrowDown"||k==="ArrowUp"){e.preventDefault();if(L.hidden)cbOpen(cbTyped?Q.value:"",true);var n=L.querySelectorAll(".cbo").length;if(n){cbAct=k==="ArrowDown"?(cbAct+1)%n:(cbAct<=0?n-1:cbAct-1);cbMark()}}
+  else if(k==="Enter"){e.preventDefault();var o=L.querySelectorAll(".cbo");if(!L.hidden&&cbAct>=0&&o[cbAct])cbCommit(o[cbAct].getAttribute("data-p"));else if(cbTyped){var m=cbMatch(Q.value);if(m.list.length)cbCommit(m.list[0]);else cbRevert()}else cbClose()}
+  else if(k==="Escape"){cbRevert()}
+  else if(k==="Tab"){var m2=cbMatch(Q.value);if(cbTyped&&m2.list.length&&nz(m2.list[0])===nz(Q.value))cbCommit(m2.list[0])}});
+ Q.addEventListener("blur",function(){setTimeout(function(){if(document.activeElement===Q)return;cbLeave()},120)});
+ $("pairB").addEventListener("mousedown",function(e){e.preventDefault()});
+ $("pairB").addEventListener("click",function(){if(!$("pairL").hidden){cbRevert();return}cbTyped=false;cbOpen("",true)});
+ $("pairL").addEventListener("mousedown",function(e){e.preventDefault()});
+ $("pairL").addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".cbo");if(b)cbCommit(b.getAttribute("data-p"))});
+ document.addEventListener("mousedown",function(e){if(!$("pairL").hidden&&e.target&&e.target.closest&&!e.target.closest("#cbx"))cbLeave()});
+ pairSel.addEventListener("change",function(){if(document.activeElement!==Q)Q.value=pairSel.value})
+})();
 var rateTouched=false;
 function fmt(n,d){return isFinite(n)?n.toLocaleString("en-GB",{minimumFractionDigits:d,maximumFractionDigits:d}):"–"}
 function money(n,c){return fmt(n,2)+" "+c}
